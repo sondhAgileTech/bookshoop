@@ -1,0 +1,25 @@
+
+{% if showSingleProduct %}
+<section class="ss-intro">
+    <div class="container-master">
+        <div class="intro-box">
+            <div class="intro-left">
+                <div class="intro-left-img">
+                    <div class="imgc">
+                        <img src="{{ showSingleProduct.image.getThumb(450, 'auto') }}" alt="{{showSingleProduct.name}}">
+                    </div>
+                </div>
+            </div>
+            <div class="intro-right">
+                <h2 class="intro-title">{{showSingleProduct.name}}</h2>
+                <div class="intro-text">
+                    {{showSingleProduct.short_description}}
+                </div>
+                <div class="btn-more blu">
+                    <a href="{{showSingleProduct.url}}" title="{{showSingleProduct.name}}">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

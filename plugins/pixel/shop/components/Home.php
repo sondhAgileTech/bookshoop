@@ -140,6 +140,7 @@ class Home extends ComponentBase
 		$this->page['showSlide'] = $this->showSlideHomePage();
 		$this->page['showNewsProduct'] = $this->showNewsProducts();
 		$this->page['showMerchandise'] = $this->showMerchandise();
+		$this->page['showSingleProduct'] = $this->showSingleProduct();
 
         $this->page['showCategoriesFilter'] = $this->property('showCategoriesFilter');
 		$this->page['showSearchBar'] = $this->property('showSearchBar');
@@ -234,6 +235,30 @@ class Home extends ComponentBase
 		});
 
 		return $products;
+	}
+
+	protected function showSingleProduct() {
+		$products = null;
+		$page = 'product';
+		if (!$categoryId = $this->property('categoryForSlidePost'))
+		return null;
+
+		if (!$category = Category::whereSlug($categoryId)->first())
+			return null;
+
+		$query = Item::select();
+
+		if($category)
+			$query->categories($category);
+		
+		$query->orderBy('updated_at');
+		$products = $query->take(1)->get();
+
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		return $products[0];
 	}
 
     // LOAD MODELS
