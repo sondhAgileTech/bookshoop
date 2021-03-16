@@ -1,16 +1,31 @@
+{% if showSlide %}
+<div class="swiper-wrapper">
+    {% for post in showSlide %}
+        <div class="swiper-slide">
+            <img src="https://images.pexels.com/photos/819372/pexels-photo-819372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+            <div class="container-master">
+                <div class="banner-text">
+                    <h1 class="banner-text-title">{{ post.name }}</h1>
+                    <div class="banner-text-description">
+                        {{ post.short_description }}
+                    </div>
+                    <div class="btn-more pink">
+                        <a href="{{ post.url }}" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
 <div class="swiper-wrapper">
     <div class="swiper-slide">
         <img src="https://images.pexels.com/photos/819372/pexels-photo-819372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
         <div class="container-master">
             <div class="banner-text">
-                <h1 class="banner-text-title">Hello summer</h1>
-                <div class="banner-text-description">
-                    When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
-                </div>
-                <div class="btn-more pink">
-                    <a href="" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                </div>
+                <h1 class="banner-text-title">No data to show</h1>
             </div>
         </div>
     </div>
 </div>
+{% endif %}

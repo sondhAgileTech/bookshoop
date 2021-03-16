@@ -112,7 +112,19 @@ class Home extends ComponentBase
 				'default'     => 'dropdown',
 				'type'        => 'dropdown',
 				'options'     => ['dropdown'=>'Dropdown', 'buttons'=>'Buttons Group']
-			], 
+			],
+			'categoryForSlidePost' => [
+				'title'       => 'Category Filter For Slide Post',
+				'description' => 'Category Filter For Slide Post at home page .',
+				'type'        => 'string',
+				'default'     => '',
+			],
+			'categoryForMerchandise' => [
+				'title'       => 'Category Filter For Merchandise',
+				'description' => 'Show New Merchandise at home page .',
+				'type'        => 'string',
+				'default'     => '',
+			],
         ];
     }
 
@@ -124,6 +136,10 @@ class Home extends ComponentBase
 
 		$this->products = $this->page['products'] = $this->loadProducts();
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
+
+		$this->page['showSlide'] = $this->showSlideHomePage();
+		$this->page['showNewsProduct'] = $this->showNewsProducts();
+		$this->page['showMerchandise'] = $this->showMerchandise();
 
         $this->page['showCategoriesFilter'] = $this->property('showCategoriesFilter');
 		$this->page['showSearchBar'] = $this->property('showSearchBar');
@@ -145,6 +161,80 @@ class Home extends ComponentBase
 
         \App::setLocale($lang);
     }
+
+	// Show slide at home page
+	protected function showSlideHomePage() {
+		$products = null;
+		$page = 'product';
+		if (!$categoryId = $this->property('categoryForSlidePost'))
+		return null;
+
+		if (!$category = Category::whereSlug($categoryId)->first())
+			return null;
+
+		$query = Item::select();
+
+		if($category)
+			$query->categories($category);
+		
+		$query->orderBy('updated_at');
+		$products = $query->take(2)->get();
+
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		return $products->toArray();
+	}
+
+
+	protected function showNewsProducts() {
+		$products = null;
+		$page = 'product';
+		if (!$categoryId = $this->property('categoryForSlidePost'))
+		return null;
+
+		if (!$category = Category::whereSlug($categoryId)->first())
+			return null;
+
+		$query = Item::select();
+
+		if($category)
+			$query->categories($category);
+		
+		$query->orderBy('updated_at');
+		$products = $query->take(3)->get();
+
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		return $products;
+	}
+
+	protected function showMerchandise() {
+		$products = null;
+		$page = 'product';
+		if (!$categoryId = $this->property('categoryForMerchandise'))
+		return null;
+
+		if (!$category = Category::whereSlug($categoryId)->first())
+			return null;
+
+		$query = Item::select();
+
+		if($category)
+			$query->categories($category);
+		
+		$query->orderBy('updated_at');
+		$products = $query->take(4)->get();
+
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		return $products;
+	}
 
     // LOAD MODELS
     protected function loadCategory(){

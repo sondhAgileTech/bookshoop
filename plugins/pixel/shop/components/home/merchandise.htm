@@ -1,0 +1,33 @@
+<section class="ss-shop-list">
+    <div class="container-master">
+        <h2 class="ss-list-title style-2">Merchandise</h2>
+        <ul class="ss-list-filter">
+            <li><a href="" title="">Filter - All</a></li>
+            <li><a href="" title="">Best Sellers</a></li>
+            <li><a href="" title="">On Sale</a></li>
+        </ul>
+        {% if showMerchandise %}
+                <div class="ss-list-body">
+                    {% for product in showMerchandise %}
+                        <div class="ss-box-item">
+                            <div class="ss-item">
+                                <div class="item-img">
+                                    <a href="" class="imgc" title="">
+                                        <img src="{{ product.image.getThumb(450, 'auto') }}" alt="">
+                                        <span>${{product.price}}</span>
+                                    </a>
+                                </div>
+                                <div class="item-body">
+                                    <h3 class="item-title"><a href="" title="">{{product.name}}</a></h3>
+                                    <div class="item-text">{{product.short_description}}</div>
+                                    <div class="btn-more blu"><a href="" title="">By now</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        {% else %}
+                <h3>No data to show</h3>
+        {% endif %}
+</div>
+</section>
