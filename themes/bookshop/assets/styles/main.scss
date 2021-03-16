@@ -1,0 +1,62 @@
+//Start Import Style
+@import 'common/mixin';
+@import 'common/common';
+@import 'common/grid';
+@import '../fonts/fontface';
+//End Import Style
+
+
+html,body {
+  font-size: 15px;
+}
+
+
+body {
+  font-family: "Nunito";
+  margin: 0;
+  padding: 0;
+  &.active{
+    overflow: hidden;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #999;
+  }
+  &.no-scroll{
+    position: relative;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    &:after{
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      //z-index: 88;
+    }
+  }
+}
+
+//Header
+@import "header";
+
+//Footer
+@import "footer";
+
+//Common Element
+@import "commonEl";

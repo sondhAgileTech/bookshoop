@@ -1,0 +1,22 @@
+
+
+/*Import Font*/
+@mixin font-face($font-family, $url, $weight, $style) {
+    @font-face {
+        font-family: '#{$font-family}';
+        src: local('#{$font-family}'), url('#{$url}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: $style;
+        font-display: swap;
+    }
+}
+// Nunito
+@include font-face("Nunito","../fonts/Nunito/Nunito-Light",300, normal );
+@include font-face("Nunito","../fonts/Nunito/Nunito-Regular",400, normal );
+@include font-face("Nunito","../fonts/Nunito/Nunito-SemiBold",600, normal );
+@include font-face("Nunito","../fonts/Nunito/Nunito-Bold",700, normal );
+// ChelaOne
+@include font-face("ChelaOne","../fonts/ChelaOne/ChelaOne-Regular",400, normal );
+
+  
+  

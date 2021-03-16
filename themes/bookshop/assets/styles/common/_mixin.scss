@@ -1,0 +1,491 @@
+/*--------Mixin--------*/
+$blue: #1877F2;
+$bluehover: #31BAF5;
+$bluebold: #011e51;
+$red: #da1840;
+$redhover: #a50021;
+$black: #000;
+$white: #fff;
+$gray: #DADADA;
+$primary: #FF0ECA;
+$secondary: #69C0FF;
+$thirdary: #ffffff;
+$color: #333333;
+//Flex-Width
+@mixin flex-width($width) {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 $width;
+  flex: 0 0 $width;
+  max-width: $width;
+}
+
+//Border-radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+//Scroll Bar
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
+  ::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+//Animation
+@mixin animation($animation) {
+  -webkit-animation: $animation; /* Safari 4.0 - 8.0 */
+  animation: $animation;
+}
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName}  {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+
+//Box-shadow
+@mixin box-shadow($boxshadow) {
+  -webkit-box-shadow: $boxshadow;
+  -moz-box-shadow: $boxshadow;
+  box-shadow: $boxshadow;
+}
+
+// Transform
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+// rotate
+@mixin rotate($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+// scale
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
+// translate
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+// skew
+@mixin skew($x, $y) {
+  @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
+//transform origin
+@mixin transform-origin($origin) {
+  moz-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+@mixin transition($time) {
+  transition: all $time !important;
+  -o-transition: all $time !important;
+  -ms-transition: all $time !important;
+  -webkit-transition: all $time !important;
+  -moz-transition: all $time !important;
+}
+
+@mixin gradient-right($color1, $color2) {
+  background: $color1; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, $color1, $color2); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, $color1, $color2); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, $color1, $color2); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, $color1, $color2); /* Standard syntax */
+}
+
+@mixin gradient-top($color1, $color2) {
+  background: $color1; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(bottom, $color1, $color2); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top, $color1, $color2); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top, $color1, $color2); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top, $color1, $color2); /* Standard syntax */
+
+}
+
+//Filter
+@mixin filter($filter-type) {
+  -webkit-filter: $filter-type;
+  -moz-filter: $filter-type;
+  -ms-filter: $filter-type;
+  -o-filter: $filter-type;
+  filter: $filter-type;
+}
+
+//Place Holder
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    @content;
+  }
+
+  &::-moz-placeholder { /* Firefox 19+ */
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+//Box image
+
+@mixin image($dp,$w,$h) {
+  display: $dp;
+  width: $w;
+  height: $h;
+
+}
+
+%transition {
+  transition: all 0.3s !important;
+  -o-transition: all 0.3s !important;
+  -ms-transition: all 0.3s !important;
+  -webkit-transition: all 0.3s !important;
+  -moz-transition: all 0.3s !important;
+}
+
+%d-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+%imgdev {
+  height: 100%;
+  width: 100%;
+  object-fit: cover
+}
+
+%text-overflow {
+  display: block;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+%btn-animation {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  background: $primary;
+  border: none;
+
+  &:after, &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 50%;
+    width: 0;
+    background: $secondary;
+    transition: width 0.3s ease-in-out;
+  }
+
+  &:before {
+    left: auto;
+    right: 0;
+    top: auto;
+    bottom: 0;
+  }
+
+  span, a {
+    position: relative;
+    z-index: 2;
+    font-weight: 600;
+    padding: 1rem 3rem;
+    display: block;
+    color: #fff;
+    transition: color 0.3s ease-in-out;
+  }
+
+  &:hover {
+    span {
+      color: #fff;
+    }
+
+    &:after, &:before {
+      width: 100%;
+    }
+  }
+}
+
+%postDetailTemplate{
+  text-align: justify;
+
+  ul, ol {
+    list-style: unset;
+    margin: inherit;
+    padding: 0 0 0 40px;
+
+    li {
+      list-style-type: inherit;
+    }
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 1.5rem;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 1.5rem;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+
+  h5 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+  h6 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  * {
+    max-width: 100%;
+  }
+
+  .wp-caption-text {
+    margin: 5px 0 0;
+    font-size: 90%;
+    font-style: italic;
+    color: #A6A6A6;
+    //text-align: center;
+    font-weight: 300;
+  }
+
+  a {
+    color: $bluebold;
+
+    &:hover {
+      color: $bluehover;
+    }
+  }
+
+  br {
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
+    content: '';
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  .aligncenter, .alignleft, .alignright {
+    display: block;
+    padding: 0;
+  }
+
+  .aligncenter {
+    float: none;
+    margin: 10px auto;
+  }
+
+  .alignright {
+    float: right;
+  }
+
+  .alignleft {
+    float: left;
+  }
+}
+
+%memberDetailTemplate{
+
+  ul, ol {
+    list-style: unset;
+    margin: inherit;
+    padding: 0 0 0 40px;
+
+    li {
+      list-style-type: inherit;
+    }
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 1.5rem;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 1.5rem;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+
+  h5 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+  h6 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  * {
+    max-width: 100%;
+  }
+
+  .wp-caption-text {
+    margin: 5px 0 0;
+    font-size: 90%;
+    font-style: italic;
+    color: #A6A6A6;
+    //text-align: center;
+    font-weight: 300;
+  }
+
+  a {
+    color: $bluebold;
+
+    &:hover {
+      color: $bluehover;
+    }
+  }
+
+  br {
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
+    content: '';
+  }
+
+  strong {
+    font-weight: 500;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  .aligncenter, .alignleft, .alignright {
+    display: block;
+    padding: 0;
+  }
+
+  .aligncenter {
+    float: none;
+    margin: 10px auto;
+  }
+
+  .alignright {
+    float: right;
+  }
+
+  .alignleft {
+    float: left;
+  }
+}

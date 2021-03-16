@@ -1,0 +1,105 @@
+1615863353a:1:{s:11:"default.htm";a:6:{s:8:"fileName";s:11:"default.htm";s:7:"content";s:2345:"[cartButton]
+cartPage = "cart"
+colorBG = "#C43730"
+color = "#FFFFFF"
+position = "bottom-left"
+==
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>October CMS - {{ this.page.title }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        <meta name="author" content="OctoberCMS">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="generator" content="OctoberCMS">
+        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ 'assets/styles/main.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/styles/banner.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/styles/homepage.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/plugins/fontAwesome/font-awesome.min.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/plugins/swiper/swiper.min.css'|theme }}">
+        <!-- Bootstrap CSS -->
+
+        {% styles%}
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!-- Header -->
+        <header id="layout-header">
+            {% partial 'site/header' %}
+        </header>
+
+        {% component 'cartButton' %}
+        <!-- Content -->
+        <main>
+            {% page %}
+        </main>
+
+        {% partial 'site/footer' %}
+        <div class="bg-black"></div>
+        <script src="{{ 'assets/plugins/jQuery/jquery.min.js'|theme }}"></script>
+        <script src="{{ 'assets/plugins/swiper/swiper.min.js'|theme }}"></script>
+        <script src="{{ 'assets/scripts/main.js'|theme }}"></script>
+        {% framework extras%}
+        {% scripts %}
+    </body>
+</html>";s:5:"mtime";i:1615862717;s:6:"markup";s:2242:"<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>October CMS - {{ this.page.title }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        <meta name="author" content="OctoberCMS">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="generator" content="OctoberCMS">
+        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ 'assets/styles/main.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/styles/banner.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/styles/homepage.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/plugins/fontAwesome/font-awesome.min.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/plugins/swiper/swiper.min.css'|theme }}">
+        <!-- Bootstrap CSS -->
+
+        {% styles%}
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!-- Header -->
+        <header id="layout-header">
+            {% partial 'site/header' %}
+        </header>
+
+        {% component 'cartButton' %}
+        <!-- Content -->
+        <main>
+            {% page %}
+        </main>
+
+        {% partial 'site/footer' %}
+        <div class="bg-black"></div>
+        <script src="{{ 'assets/plugins/jQuery/jquery.min.js'|theme }}"></script>
+        <script src="{{ 'assets/plugins/swiper/swiper.min.js'|theme }}"></script>
+        <script src="{{ 'assets/scripts/main.js'|theme }}"></script>
+        {% framework extras%}
+        {% scripts %}
+    </body>
+</html>";s:4:"code";N;s:10:"cartButton";a:4:{s:8:"cartPage";s:4:"cart";s:7:"colorBG";s:7:"#C43730";s:5:"color";s:7:"#FFFFFF";s:8:"position";s:11:"bottom-left";}}}

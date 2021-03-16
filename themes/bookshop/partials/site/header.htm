@@ -1,0 +1,35 @@
+description = "header"
+
+[menu]
+start = "id-2"
+activeNode = "id-2"
+listItemClasses = "item"
+primaryClasses = "nav nav-pills"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 2
+==
+
+<header class="ss-header">
+    <div class="container-master">
+        <div class="box-header">
+            <div class="header-logo">
+                <a href="" title=""><img src="{{ 'assets/images/logo-header.png'|theme }}" alt=""></a>
+            </div>
+            <div class="header-right">
+                <nav class="ss-menu">
+                    {% component 'menu' %}
+                </nav>
+                <div class="ss-cart">
+                    <a href="{{ cart_page|page }}" title=""><img src="{{ 'assets/images/icons/Buy.png'|theme }}" alt="">
+                        <span class="shop__items-count shop__cart-button-text-accent shop__cart-button-border" id="cart_count"> {{ cart_count }}</span>
+                    </a>
+                </div>
+                <div id="toggleMenu">
+                    <div class="one"></div>
+                    <div class="two"></div>
+                    <div class="three"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

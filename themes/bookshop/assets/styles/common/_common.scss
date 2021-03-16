@@ -1,0 +1,161 @@
+// html, body, div, span, applet, object, iframe,
+// h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+// a, abbr, acronym, address, big, cite, code,
+// del, dfn, em, img, ins, kbd, q, s, samp,
+// small, strike, strong, sub, sup, tt, var,
+// b, u, i, center,
+// dl, dt, dd, ol, ul, li,
+// fieldset, form, label, legend,
+// table, caption, tbody, tfoot, thead, tr, th, td,
+// article, aside, canvas, details, embed,
+// figure, figcaption, footer, header, hgroup,
+// menu, nav, output, ruby, section, summary,
+// time, mark, audio, video {
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   font-size: 100%;
+//   font: inherit;
+//   vertical-align: baseline;
+// }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+// ol, ul {
+//   list-style: none;
+// }
+
+.hidden {
+  display: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+*[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .5;
+}
+
+* {
+  outline: none !important;
+  text-decoration: none !important;
+  box-sizing: border-box;
+}
+
+// ul {
+//   margin: 0;
+//   padding: 0;
+
+//   li {
+//     list-style-type: none;
+//   }
+// }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+a {
+  color: $primary;
+
+  &:hover {
+    color: $secondary;
+  }
+}
+
+.cb {
+  clear: both;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.imgc {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.imgc0 {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+  }
+}
+
