@@ -112,7 +112,13 @@ class Home extends ComponentBase
 				'default'     => 'dropdown',
 				'type'        => 'dropdown',
 				'options'     => ['dropdown'=>'Dropdown', 'buttons'=>'Buttons Group']
-			], 
+			],
+            'categoryForSingleBook' => [
+                'title'       => 'Category Filter For Single Book',
+                'description' => 'Category Filter For Single Book at home page .',
+                'type'        => 'string',
+                'default'     => '',
+            ],
         ];
     }
 
@@ -124,6 +130,7 @@ class Home extends ComponentBase
 
 		$this->products = $this->page['products'] = $this->loadProducts();
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
+		$this->singleBook = $this->page['singleBook'] = $this->loadSingleBook();
 
         $this->page['showCategoriesFilter'] = $this->property('showCategoriesFilter');
 		$this->page['showSearchBar'] = $this->property('showSearchBar');
@@ -279,4 +286,28 @@ class Home extends ComponentBase
 			return;
 		}
 	}
+
+    protected function loadSingleBook() {
+        $products = null;
+        $page = 'product';
+        if (!$categoryId = $this->property('categoryForSingleBook'))
+            return null;
+
+        if (!$category = Category::whereSlug($categoryId)->first())
+            return null;
+
+        $query = Item::select();
+
+        if($category)
+            $query->categories($category);
+
+        $query->orderBy('created_at');
+        $products = $query->take(1)->get();
+
+        $products->each(function($product) use ($page) {
+            $product->setUrl($page, $this->controller);
+        });
+
+        return $products[0];
+    }
 }

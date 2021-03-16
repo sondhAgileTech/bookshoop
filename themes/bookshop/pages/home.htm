@@ -28,31 +28,18 @@ productPage = "product"
 categoryPage = "products"
 showQuickAdd = 1
 typeCategoriesFilter = "dropdown"
+categoryForSingleBook = "book"
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "blog/category"
+postPage = "blog/post"
 ==
 {% component 'homePage' %}
-<section class="ss-intro">
-    <div class="container-master">
-        <div class="intro-box">
-            <div class="intro-left">
-                <div class="intro-left-img">
-                    <div class="imgc">
-                        <img src="{{ 'assets/images/img1.png'|theme }}" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="intro-right">
-                <h2 class="intro-title">"The Adventures of <span style="color: #3388FF;">Oliver</span> and <span style="color: #FF0ECA;">Madeline</span>" Book</h2>
-                <div class="intro-text">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry has been the industry's standard dummy text ever since. <br> <br>
-                    When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop.
-                </div>
-                <div class="btn-more blu">
-                    <a href="" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <section class="ss-post-list">
     <div class="container-master">
         <h2 class="ss-list-title style-1">New Books</h2>
@@ -168,81 +155,5 @@ typeCategoriesFilter = "dropdown"
         </div>
     </div>
 </section>
-<section class="ss-blog">
-    <div class="container-master">
-        <div class="ss-box-blog">
-            <div class="ss-blog-text">
-                <h3 class="ss-list-title style-3"><a href="" title="">Our Blog</a></h3>
-                <div class="ss-txt">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br> <br>
-                    Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
-                </div>
-                <div class="btn-more pink"><a href="" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
-            </div>
-            <div class="ss-blog-slide">
-                <div class="swiper-blog">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="ss-item">
-                                <div class="item-img">
-                                    <a href="" title="" class="imgc">
-                                        <img src="{{ 'assets/images/b1.png'|theme }}" alt="">
-                                        <span>New</span>
-                                    </a>
-                                </div>
-                                <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">Essential Strategies Management</a></h3>
-                                    <div class="item-text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </div>
-                                    <div class="item-date">
-                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt=""><span>29 Dec 2019</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="ss-item">
-                                <div class="item-img">
-                                    <a href="" title="" class="imgc">
-                                        <img src="{{ 'assets/images/b2.png'|theme }}" alt="">
-                                        <span>New</span>
-                                    </a>
-                                </div>
-                                <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">Essential Strategies Management</a></h3>
-                                    <div class="item-text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </div>
-                                    <div class="item-date">
-                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt=""><span>29 Dec 2019</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="ss-item">
-                                <div class="item-img">
-                                    <a href="" title="" class="imgc">
-                                        <img src="{{ 'assets/images/b1.png'|theme }}" alt="">
-                                        <span>New</span>
-                                    </a>
-                                </div>
-                                <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">Essential Strategies Management</a></h3>
-                                    <div class="item-text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </div>
-                                    <div class="item-date">
-                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt=""><span>29 Dec 2019</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+{% component 'blogPosts' %}

@@ -1,0 +1,26 @@
+{% if singleBook %}
+<section class="ss-intro">
+    <div class="container-master">
+        <div class="intro-box">
+            <div class="intro-left">
+                <div class="intro-left-img">
+                    <div class="imgc">
+<!--                        <img src="{{ 'assets/images/img1.png'|theme }}" alt="">-->
+                        <img src="{{ singleBook.image.thumb(509,628,'crop') }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="intro-right">
+<!--                <h2 class="intro-title">"The Adventures of <span style="color: #3388FF;">Oliver</span> and <span style="color: #FF0ECA;">Madeline</span>" Book</h2>-->
+                <h2 class="intro-title">{{singleBook.name}}</h2>
+                <div class="intro-text">
+                    {{singleBook.short_description}}
+                </div>
+                <div class="btn-more blu">
+                    <a href="{{singleBook.url}}" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
