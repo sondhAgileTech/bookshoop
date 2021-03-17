@@ -30,84 +30,14 @@ showQuickAdd = 1
 typeCategoriesFilter = "dropdown"
 categoryForSlidePost = "book"
 categoryForMerchandise = "merchandise"
+
+[blogHomePage]
+pageNumber = "{{ :page }}"
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "cart"
+postPage = "cart"
 ==
 {% component 'homePage' %}
-
-<section class="ss-blog">
-    <div class="container-master">
-        <div class="ss-box-blog">
-            <div class="ss-blog-text">
-                <h3 class="ss-list-title style-3"><a href="" title="">Our Blog</a></h3>
-                <div class="ss-txt">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br> <br>
-                    Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
-                </div>
-                <div class="btn-more pink"><a href="" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
-            </div>
-            <div class="ss-blog-slide">
-                <div class="swiper-blog">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="ss-item">
-                                <div class="item-img">
-                                    <a href="" title="" class="imgc">
-                                        <img src="{{ 'assets/images/b1.png'|theme }}" alt="">
-                                        <span>New</span>
-                                    </a>
-                                </div>
-                                <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">Essential Strategies Management</a></h3>
-                                    <div class="item-text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </div>
-                                    <div class="item-date">
-                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt=""><span>29 Dec 2019</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="ss-item">
-                                <div class="item-img">
-                                    <a href="" title="" class="imgc">
-                                        <img src="{{ 'assets/images/b2.png'|theme }}" alt="">
-                                        <span>New</span>
-                                    </a>
-                                </div>
-                                <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">Essential Strategies Management</a></h3>
-                                    <div class="item-text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </div>
-                                    <div class="item-date">
-                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt=""><span>29 Dec 2019</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="ss-item">
-                                <div class="item-img">
-                                    <a href="" title="" class="imgc">
-                                        <img src="{{ 'assets/images/b1.png'|theme }}" alt="">
-                                        <span>New</span>
-                                    </a>
-                                </div>
-                                <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">Essential Strategies Management</a></h3>
-                                    <div class="item-text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </div>
-                                    <div class="item-date">
-                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt=""><span>29 Dec 2019</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{% component 'blogHomePage' %}

@@ -9,7 +9,8 @@
         "../fonts/_fontface.scss",
         "_header.scss",
         "_footer.scss",
-        "_commonEl.scss"
+        "_commonEl.scss",
+        "_detail.scss"
     ],
     "names": [],
     "file": "main.css"

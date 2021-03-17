@@ -12,15 +12,15 @@
                         <div class="ss-box-item">
                             <div class="ss-item">
                                 <div class="item-img">
-                                    <a href="" class="imgc" title="">
-                                        <img src="{{ product.image.getThumb(450, 'auto') }}" alt="">
+                                    <a href="{{ product.url }}" class="imgc" title="{{product.name}}">
+                                        <img src="{{ product.image.getThumb(450, 'auto') }}" alt="{{product.name}}">
                                         <span>${{product.price}}</span>
                                     </a>
                                 </div>
                                 <div class="item-body">
-                                    <h3 class="item-title"><a href="" title="">{{product.name}}</a></h3>
+                                    <h3 class="item-title"><a href="{{ product.url }}" title="{{product.name}}">{{product.name}}</a></h3>
                                     <div class="item-text">{{product.short_description}}</div>
-                                    <div class="btn-more blu"><a href="" title="">By now</a></div>
+                                    <div class="btn-more blu"><a href="{{ product.url }}" title="{{product.name}}">By now</a></div>
                                 </div>
                             </div>
                         </div>
