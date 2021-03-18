@@ -1,4 +1,4 @@
-{% if relatedProducts|length > 1 %}
+<!-- {% if relatedProducts|length > 1 %}
 <div class="container">
 	<legend class="related-header">
 		<i class="fas fa-tags"></i> {{ 'pixel.shop::lang.frontend.related_products'|trans }}
@@ -30,4 +30,34 @@
 	</div>
 	{% endfor %}
 </div>
+{% endif %} -->
+
+{% if relatedProducts|length > 1 %}
+<section class="ss-shop-list ss-shop-list-recommended">
+	<div class="container-master">
+		<h2 class="ss-list-title style-2 style-related-product">Recommended for you</h2>
+		{% for productGroup in relatedProducts.chunk(4) %}
+			<div class="ss-list-body">
+				{% for product in productGroup %}
+					<div class="ss-box-item">
+						<div class="ss-item">
+							<div class="item-img">
+								<a href="{{ product.url }}" class="imgc" title="{{ product.name }}">
+									<img src="{{ product.image.getThumb(450, 'auto') }}" alt="">
+									<span>{{ product.price }}</span>
+								</a>
+							</div>
+							<div class="item-body">
+								<h3 class="item-title"><a href="{{ product.url }}" title="{{ product.name }}">{{ product.name }}</a></h3>
+								<div class="item-text">{{ product.short_description }}</div>
+								<div class="btn-more blu"><a href="{{ product.url }}" title="{{ product.name }}">By now</a></div>
+								<div class="btn-more blu"><a href="{{ product.url }}" title="{{ product.name }}">Download Digtal</a></div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</section>
 {% endif %}

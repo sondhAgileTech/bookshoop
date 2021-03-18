@@ -6,10 +6,10 @@ use Pixel\Shop\Models\Item;
 use Pixel\Shop\Classes\Cart;
 use Pixel\Shop\Models\SalesSettings;
 use Pixel\Shop\Components\CartTrait;
-
+use Algad\Facebook\Components\AbstractFacebookComponent;
 use Cms\Classes\ComponentBase;
 
-class ProductDetails extends ComponentBase{
+class ProductDetails extends AbstractFacebookComponent{
 	use CartTrait;
 
 	public function componentDetails()
@@ -34,6 +34,33 @@ class ProductDetails extends ComponentBase{
 				'type'        => 'dropdown',
 				'default'     => 'products',
 			],
+			'page_url' => [
+                'title' => 'URL',
+                'description' => 'URL to comment',
+                'type' => 'string',
+            ],
+            'width' => [
+                'title' => 'Width',
+                'description' => 'Width of the comments box',
+                'type' => 'string'
+            ],
+            'posts_number' => [
+                'title' => 'Number of posts',
+                'description' => 'Number of posts to display',
+                'type' => 'string',
+                'default' => '5'
+            ],
+            'color' => [
+                'title' => 'Color scheme',
+                'type' => 'dropdown',
+                'default' => 'light',
+                'options' => ['light' => 'light', 'dark' => 'dark']
+            ],
+            'custom_css' => [
+                'title' => 'Css',
+                'description' => 'add custom css classes',
+                'type' => 'string',
+            ]
 		];
 	}
 
@@ -46,6 +73,9 @@ class ProductDetails extends ComponentBase{
         
     	$slug = $this->property('slug');
     	$product = Item::where('slug', $slug)->where("is_visible", 1)->first();
+		if($product->type != "product") {
+			$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+		}
 
     	$this->addCss('/plugins/pixel/shop/assets/css/product.css');
 		$this->addJs('/plugins/pixel/shop/assets/js/product.js');

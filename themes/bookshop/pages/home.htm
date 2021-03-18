@@ -17,6 +17,14 @@ showSearchBar = 1
 showQuickAdd = 1
 typeCategoriesFilter = "dropdown"
 
+[blogHomePage]
+pageNumber = "{{ :page }}"
+postsPerPage = 3
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "cart"
+postPage = "cart"
+
 [homePage]
 categoryFilter = "{{ :category }}"
 scope = "showItems"
@@ -30,14 +38,6 @@ showQuickAdd = 1
 typeCategoriesFilter = "dropdown"
 categoryForSlidePost = "book"
 categoryForMerchandise = "merchandise"
-
-[blogHomePage]
-pageNumber = "{{ :page }}"
-postsPerPage = 10
-noPostsMessage = "No posts found"
-sortOrder = "published_at desc"
-categoryPage = "cart"
-postPage = "cart"
 ==
 {% component 'homePage' %}
 {% component 'blogHomePage' %}

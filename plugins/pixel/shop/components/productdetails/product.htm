@@ -1,4 +1,4 @@
-<div class="product-detail">
+<div class="container-master">
 	{% if not product %}
 
 		<div class="row">
@@ -9,13 +9,13 @@
 
 	{% else %}
 
-		<div class="row">
+		<div class="row-master">
 			<div class="col-sm-6">
 				{% partial '@gallery' product=product %}
 			</div>
 
 			<div class="col-sm-6">
-				{% partial '@details' product=product %}
+				{% partial '@detail2' product=product %}
 			</div>
 
 			<div class="clearfix"></div>

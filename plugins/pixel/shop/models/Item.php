@@ -123,6 +123,10 @@ class Item extends Model{
 		return CurrencyModel::isEnabled()->lists('currency_code','currency_code');
 	}
 
+	public function getModuloIdOptions(){
+		return CurrencyModel::isEnabled()->lists('currency_code','currency_code');
+	}
+
 	// FILTERS
 	public function scopeFilterCategories($query, $categories){
 		return $query->whereHas('categories', function($q) use ($categories) {
@@ -270,5 +274,11 @@ class Item extends Model{
 		$categories = $this->categories->lists('name');
 
 		return implode(',' , $categories);
+	}
+
+	public function getProductRelatedOptions(){
+		return self::all()->lists('name', 'id');
+
+		// return implode(',' , $product);
 	}
 }

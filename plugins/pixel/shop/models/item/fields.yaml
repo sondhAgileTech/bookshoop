@@ -88,6 +88,14 @@ tabs:
             type: dropdown
             tab: 'pixel.shop::lang.fields.details'
 
+        author:
+            label: 'author'
+            oc.commentPosition: ''
+            cssClass: oc-icon-user
+            span: auto
+            type: text
+            tab: 'pixel.shop::lang.fields.details'
+
         brand:
             label: 'pixel.shop::lang.fields.brand'
             oc.commentPosition: ''
@@ -115,6 +123,22 @@ tabs:
             mode: relation
             nameFrom: name
             tab: 'pixel.shop::lang.fields.details'
+
+        product_related:
+            label: 'Product related'
+            oc.commentPosition: ''
+            span: auto
+            type: dropdown
+            size: tiny
+            mode: string
+            modelClass: 'Pixel\Shop\Models\Brand'
+            cssClass: oc-icon-edit
+            nameFrom: name
+            tab: 'pixel.shop::lang.fields.details'
+            trigger:
+              action: disable
+              field: type
+              condition: value[product]
 
         code:
             label: 'pixel.shop::lang.fields.code'

@@ -198,6 +198,7 @@ class CartContainer extends ComponentBase{
         $this->page['methods_list'] = $billingCountry && property_exists($billingCountry, 'code') ? $this->getPaymentMethodsList($billingCountry->code) : null;
         $this->page['method_country_code'] = $billingCountry->code ?? null;
 
+		$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 		$this->addCss('/plugins/pixel/shop/assets/css/cart.css');
         $this->addJs('/plugins/pixel/shop/assets/js/jquery.mask.min.js');
 		$this->addJs('/plugins/pixel/shop/assets/js/jquery.validate.min.js');

@@ -17,6 +17,8 @@ class BuilderTableCreatePixelShopItems extends Migration
             $table->integer('brand_id')->index()->nullable();
             $table->integer('item_id')->index()->nullable();
             $table->string('type', 60);
+            $table->string('author', 60)->nullable();
+            $table->integer('product_related')->nullable();
             
             $table->integer('quantity')->nullable();
             $table->decimal('price', 10, 2)->nullable()->default(0.00);
