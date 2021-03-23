@@ -16,6 +16,7 @@ class ProductList extends ComponentBase
     use CartTrait;
     
     public $products = array();
+	public $productsOfCate = array();
 	public $settings = array();
 
     public function componentDetails()
@@ -117,17 +118,27 @@ class ProductList extends ComponentBase
 				'default'     => 'dropdown',
 				'type'        => 'dropdown',
 				'options'     => ['dropdown'=>'Dropdown', 'buttons'=>'Buttons Group']
-			], 
+			],
+            'exceptCategory' => [
+                'title'             => 'except Category',
+                'description'       => 'rainlab.blog::lang.settings.posts_except_post_description',
+                'type'              => 'string',
+                'validationPattern' => '^[a-z0-9\-_,\s]+$',
+                'validationMessage' => 'rainlab.blog::lang.settings.posts_except_post_validation',
+                'default'           => '',
+                'group'             => 'rainlab.blog::lang.settings.group_exceptions',
+            ],
         ];
     }
 
     public function onRun()
-	{
-        $this->prepareLang();
-        
+	{   
 		$this->addCss('/plugins/pixel/shop/assets/css/products.css');
 
 		$this->products = $this->page['products'] = $this->loadProducts();
+		$this->productsOfCate = $this->page['productsOfCate'] = $this->getProductOfCate();
+		$this->page['hotProductInCate'] = $this->getHotProducts();
+
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
 
         $this->page['showCategoriesFilter'] = $this->property('showCategoriesFilter');
@@ -283,5 +294,54 @@ class ProductList extends ComponentBase
 			Flash::error(trans('pixel.shop::lang.components.pl_please_login'));
 			return;
 		}
+	}
+
+	public function getHotProducts() {
+		$page = $this->property('productPage');
+		$category = $this->page['activeCategory'] = $this->loadCategory();
+		$take = 3;
+	    $products = null;
+
+		$this->page['categoryList'] = $this->getCategoryList();
+
+		$query = Item::select();
+
+		if($category)
+			$query->categories($category);
+
+		if($this->property('limitType') == 'take')
+			$products = $query->take($take)->orderBy('views_count', 'DESC')->get();
+		else
+			$products = $query->orderBy('views_count', 'DESC')->paginate($take);
+		
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		return $products;
+	}
+
+	public function getProductOfCate(){
+		if(!$param = $this->paramName('categoryFilter'))
+			return;
+
+		$categories = Category::where('slug','<>', $this->property('exceptCategory'))->get();
+		$page = $this->property('categoryPage');
+		$list = array();
+		
+		$empty = new Category();
+		$empty->name = trans('pixel.shop::lang.components.pl_all_cats');
+		$empty->setUrl($page, $this->controller, $param);
+
+		$list[] = $empty;
+		
+		$categories->each(function($item) use ($page, $param, &$list) {
+			$item->setUrl($page, $this->controller, $param);
+
+			if($item->items->count() > 0)
+				$list[] = $item;
+		});
+
+		return $list;
 	}
 }

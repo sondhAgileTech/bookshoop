@@ -1,0 +1,26 @@
+<section class="ss-shop-list ss-shop-list-recommended">
+	<div class="container-master">
+		<h2 class="ss-list-title style-2 style-related-product">Related Merchandise</h2>
+		{% for productGroup in relatedProductsOfMerchandise.chunk(4) %}
+			<div class="ss-list-body">
+				{% for product in productGroup %}
+					<div class="ss-box-item">
+						<div class="ss-item">
+							<div class="item-img">
+								<a href="{{ product.url }}" class="imgc" title="{{ product.name }}">
+									<img src="{{ product.image.getThumb(450, 'auto') }}" alt="">
+									<span>{{ product.price }}</span>
+								</a>
+							</div>
+							<div class="item-body">
+								<h3 class="item-title"><a href="{{ product.url }}" title="{{ product.name }}">{{ product.name }}</a></h3>
+								<div class="item-text">{{ product.short_description }}</div>
+								<div class="btn-more blu"><a href="{{ product.url }}" title="{{ product.name }}">By now</a></div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</section>

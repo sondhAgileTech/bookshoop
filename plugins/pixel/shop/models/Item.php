@@ -74,6 +74,27 @@ class Item extends Model{
         return $settings->default_image;
 	}
 
+	//SCOPES
+	public function scopeExceptCategories($query, $category, $exceptCategory){
+		if(!$category)
+			return $query;
+
+		if($child = $category->children)
+			$categories = $category->children->lists('slug');
+
+		$categories[] = $category->slug;
+
+		if($exceptCategory) {
+			return $query->whereHas('categories', function($q) use ($exceptCategory) {
+				$q->where('slug', '<>', $exceptCategory);
+			});
+		}
+
+		return $query->whereHas('categories', function($q) use ($categories) {
+			$q->whereIn('slug', $categories);
+		});
+	}
+
 	// SCOPES
 	public function scopeCategories($query, $category){
 		if(!$category)

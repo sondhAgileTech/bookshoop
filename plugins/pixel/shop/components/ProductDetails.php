@@ -88,6 +88,7 @@ class ProductDetails extends AbstractFacebookComponent{
         $this->page['product'] = $product;
         $this->page['shopSetting'] = SalesSettings::instance();
         $this->page['relatedProducts'] = $this->getRelatedProducts($product);
+		$this->page['relatedProductsOfMerchandise'] = $this->getRelatedProductsOfMerchandise($product);
 
         $product->setUrl($this->page->code, $this->controller);
 
@@ -119,6 +120,22 @@ class ProductDetails extends AbstractFacebookComponent{
 		$products = Item::whereHas('categories', function($query) use ($list){
 			$query->whereIn('id', $list);
 		})->where('id','<>', $product->id)
+			->where('is_visible', 1)
+			->orderBy('views_count', 'desc')
+			->orderBy('sales_count', 'desc')
+			->take(16)
+			->get();
+
+		foreach ($products as $product) {
+			$product->setUrl($this->page->code, $this->controller);
+		}
+
+		return $products;
+	}
+
+	public function getRelatedProductsOfMerchandise($product){	
+
+		$products = Item::where('product_related','=', $product->id)
 			->where('is_visible', 1)
 			->orderBy('views_count', 'desc')
 			->orderBy('sales_count', 'desc')
