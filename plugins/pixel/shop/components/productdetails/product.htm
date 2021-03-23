@@ -1,27 +1,25 @@
 <div class="container-master">
-	{% if not product %}
+    {% if not product %}
 
-		<div class="row">
-			<div class="col-sm-12">
-				<h2>{{ 'pixel.shop::lang.frontend.product_not_found'|trans }}</h2>
-			</div>
-		</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>{{ 'pixel.shop::lang.frontend.product_not_found'|trans }}</h2>
+        </div>
+    </div>
 
-	{% else %}
+    {% else %}
 
-		<div class="row-master">
-			<div class="col-sm-6">
-				{% partial '@gallery' product=product %}
-			</div>
+    <div class="row-master">
+        <div class="col-sm-6">
+            {% partial '@gallery' product=product %}
+        </div>
 
-			<div class="col-sm-6">
-				{% partial '@detail2' product=product %}
-			</div>
+        <div class="col-sm-6">
+            {% partial '@detail2' product=product %}
+        </div>
 
-			<div class="clearfix"></div>
-		</div>
+        <div class="clearfix"></div>
+    </div>
 
-		{% partial '@related' %}
-
-	{% endif %}
+    {% partial '@related' %} {% endif %}
 </div>
