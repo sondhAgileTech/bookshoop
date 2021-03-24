@@ -18,6 +18,7 @@ class ProductList extends ComponentBase
     public $products = array();
 	public $productsOfCate = array();
 	public $settings = array();
+	public $nameCategory = '';
 
     public function componentDetails()
     {
@@ -138,6 +139,7 @@ class ProductList extends ComponentBase
 		$this->products = $this->page['products'] = $this->loadProducts();
 		$this->productsOfCate = $this->page['productsOfCate'] = $this->getProductOfCate();
 		$this->page['hotProductInCate'] = $this->getHotProducts();
+		$this->nameCategory = $this->property('categoryFilter');
 
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
 
@@ -324,16 +326,15 @@ class ProductList extends ComponentBase
 	public function getProductOfCate(){
 		if(!$param = $this->paramName('categoryFilter'))
 			return;
-
-		$categories = Category::where('slug','<>', $this->property('exceptCategory'))->get();
+		
+		if($this->property('categoryFilter') == $this->property('exceptCategory')) {
+			$categories = Category::where('slug','=', $this->property('exceptCategory'))->get();
+		} else {
+			$categories = Category::where('slug','<>', $this->property('exceptCategory'))->get();
+		}
+		
 		$page = $this->property('categoryPage');
 		$list = array();
-		
-		$empty = new Category();
-		$empty->name = trans('pixel.shop::lang.components.pl_all_cats');
-		$empty->setUrl($page, $this->controller, $param);
-
-		$list[] = $empty;
 		
 		$categories->each(function($item) use ($page, $param, &$list) {
 			$item->setUrl($page, $this->controller, $param);

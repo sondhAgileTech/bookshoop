@@ -551,6 +551,76 @@
     padding: 0 15px;
 }
 
+.box-item-2 .item-body {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.box-item-2 .item-title {
+    margin: 0;
+}
+
+.box-item-2 .item-text {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.06rem;
+    line-height: 24px;
+    max-height: 48px;
+    overflow: hidden;
+    color: #000;
+    margin-top: 1.3rem;
+}
+
+.box-item-2 .item-body {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.box-item-2 .item-title a {
+    display: inline-block;
+    color: #333;
+    font-size: 1.6rem;
+    line-height: 32px;
+    max-height: 32px;
+    overflow: hidden;
+}
+
+.box-item-2  .item-title a:hover {
+    color: #FF0ECA;
+}
+
+.box-item-2 .btn-more {
+    margin-top: 1.7rem;
+}
+
+.btn-more-2 {
+    margin-top: 1.7rem;
+}
+
+.btn-more-2.pink a {
+    background-image: url(../img/btnbg-pink.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+}
+
+.btn-more-2 a {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #fff;
+    width: 157px;
+    height: 54px;
+    line-height: 54px;
+    display: inline-block;
+    text-align: center;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.btn-more-2.pink a:hover {
+    background-image: url(../img/btnbg-blu.png);
+}
 .dropdown-menu .sub-category>li>a:hover {
     text-decoration: none;
     color: #262626;

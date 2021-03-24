@@ -269,8 +269,8 @@ trait PaymentTrait{
 			}
 
 			$cc_number = str_replace(' ', '', post("cc_number"));
-			$cc_em = substr(post("cc_exp"), 0, 2);
-			$cc_ey = substr(post("cc_exp"), -2);
+			$cc_em = (int)substr(post("cc_exp"), 0, 2);
+			$cc_ey = (int)substr(post("cc_exp"), -2);
 			$cc_cvv = post("cc_cvv");
 
 			$cardParams = [

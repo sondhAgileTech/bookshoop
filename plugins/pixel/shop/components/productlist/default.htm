@@ -50,11 +50,16 @@
     </div>
 </section>
 
+{% set nameCategory = __SELF__.nameCategory %}
 <section class="ss-shop-list" id="ss-shop-category">
     <div class="container-master">
-        <h2 class="ss-list-title style-2">Hot Items</h2>
+        <h2 class="ss-list-title style-2">Hot {{nameCategory | capitalize }}</h2>
         <div class="ss-list-body">
-            {% for productGroup in __SELF__.products.chunk(4) %} {% for product in productGroup %} {% partial '@hotitem' product=product %} {% endfor %} {% else %}
+            {% for productGroup in hotProductInCate.chunk(3) %}
+			 	{% for product in productGroup %} 
+				 	{% partial '@hotitem' product=product %}
+				{% endfor %}
+			{% else %}
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-center">
@@ -69,31 +74,28 @@
 </section>
 
 
-<section class="products-pagination">
+<!-- <section class="products-pagination">
     <div class="container">
         {{ products.render|raw }}
     </div>
-</section>
+</section> -->
 
-<section class="ss-shop-list" id="ss-shop-category">
-    <div class="container-master">
-        <h2 class="ss-list-title style-2 style-related-product">T - Shirts</h2>
-        <div class="ss-list-body">
-            {% for productGroup in __SELF__.products.chunk(4) %} {% for product in productGroup %} {% partial '@category' product=product %} {% endfor %} {% else %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="text-center">
-                        <i class="fas fa-search fa-6x"></i>
-                        <h1>{{ 'pixel.shop::component.cart.no_results'|trans }}</h1>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+{% set productsOfCate = __SELF__.productsOfCate %}
 
-<section class="ss-shop-list" id="ss-shop-category">
+{% for productGroupCate in productsOfCate %}
+	<section class="ss-shop-list" id="ss-shop-category">
+		<div class="container-master">
+			<h2 class="ss-list-title style-2 style-related-product">{{productGroupCate.name}}</h2>
+			<div class="ss-list-body">
+				{% for product in productGroupCate['items'] %}
+					 {% partial '@category' product=product %}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endfor %}
+
+<!-- <section class="ss-shop-list" id="ss-shop-category">
     <div class="container-master">
         <h2 class="ss-list-title style-2 style-related-product">Toys</h2>
         <div class="ss-list-body">
@@ -109,4 +111,4 @@
             {% endfor %}
         </div>
     </div>
-</section>
+</section> -->

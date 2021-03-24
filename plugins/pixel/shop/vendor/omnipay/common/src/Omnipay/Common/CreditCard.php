@@ -280,9 +280,9 @@ class CreditCard
             }
         }
 
-        if ($this->getExpiryDate('Ym') < gmdate('Ym')) {
-            throw new InvalidCreditCardException('Card has expired');
-        }
+        // if ($this->getExpiryDate('Ym') < gmdate('Ym')) {
+        //     throw new InvalidCreditCardException('Card has expired');
+        // }
 
         if (!Helper::validateLuhn($this->getNumber())) {
             throw new InvalidCreditCardException('Card number is invalid');
