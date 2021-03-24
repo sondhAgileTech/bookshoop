@@ -1,0 +1,113 @@
+.ss-list-body{
+    display: flex;
+}
+.ss-blog{
+    padding: 32px;
+}
+.ss-list-body .ss-blog-item{
+    width: 100%;
+}
+.ss-list-body .ss-blog-img{
+    position: relative;
+}
+.ss-list-body .show-list-blog-item{
+    float: left;
+}
+.ss-list-body .ss-blog-img .imgc{
+    height: 491px;
+    border-radius: 8px;
+}
+.ss-list-item-top{
+    padding-top: 70px;
+}
+.ss-list-item-bottom{
+    padding-bottom: 70px;
+}
+.ss-list-body .ss-blog-img h2{
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    right: 30%;
+    font-size: 5.6rem;
+}
+.ss-list-body .ss-blog-item .item-body .item-title a{
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2.1rem;
+    max-height: 4.2rem;
+    overflow: hidden;
+    color: #333;
+}
+.ss-list-body .ss-blog-item .item-img a span{
+    position: absolute;
+    top: 0;
+    left: 15px;
+    font-size: 1.2rem;
+    color: #fff;
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    background-color: #69C0FF;
+    border-radius: 0px 0px 10px 10px;
+    border-bottom: 3px solid #3388FF;
+}
+.ss-blog .ss-list-body .ss-blog-item .item-img .imgc{
+    width: 100% !important;
+    height: 260px !important;
+    border-radius: 8px 8px 0 0;
+}
+
+
+.ss-list-body .ss-blog-item .item-body{
+    border-radius: 0 0 10px 10px;
+    background-color: #fff;
+    padding: 2rem;
+    text-align: center;
+}
+.ss-list-body .ss-blog-item .item-body .item-title a:hover{
+    color: #FF0ECA;
+}
+.ss-list-body .ss-blog-item .item-body .item-text{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.06rem;
+    line-height: 2.1rem;
+    max-height: 4.2rem;
+    overflow: hidden;
+    color: #333;
+    margin-top: 0.5rem;
+}
+.ss-list-body .ss-blog-item .item-body .item-date{
+    margin-top: 0.8rem;
+}
+.ss-list-body .ss-blog-item .item-body span{
+    display: inline-block;
+    font-weight: normal;
+    font-size: 1.06rem;
+    color: #333;
+    margin-left: 10px;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .ss-list-body .ss-blog-img h2{
+        position: absolute;
+        color: #fff;
+        top: 55%;
+        right: 20%;
+        font-size: 5rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .ss-list-body .ss-blog-img h2{
+        position: absolute;
+        color: #fff;
+        top: 55%;
+        right: 15%;
+        font-size: 4.5rem;
+    }
+    .show-list-blog-item{
+        padding: 15px 0;
+    }
+}
