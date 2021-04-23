@@ -2,7 +2,7 @@
 cartPage = "cart"
 colorBG = "#C43730"
 color = "#FFFFFF"
-position = "bottom-left"
+position = "bottom-right"
 ==
 <!DOCTYPE html>
 <html lang="">
@@ -23,7 +23,7 @@ position = "bottom-left"
         <link rel="stylesheet" href="{{ 'assets/plugins/fontAwesome/font-awesome.min.css'|theme }}">
         <link rel="stylesheet" href="{{ 'assets/plugins/swiper/swiper.min.css'|theme }}">
         <!-- Bootstrap CSS -->
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         {% styles%}
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,7 +38,7 @@ position = "bottom-left"
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-
+        
         {% component 'cartButton' %}
         <!-- Content -->
         <main>
@@ -50,7 +50,32 @@ position = "bottom-left"
         <script src="{{ 'assets/plugins/jQuery/jquery.min.js'|theme }}"></script>
         <script src="{{ 'assets/plugins/swiper/swiper.min.js'|theme }}"></script>
         <script src="{{ 'assets/scripts/main.js'|theme }}"></script>
+        <script src="{{ 'assets/scripts/common.js'|theme }}"></script>
+        <script src="{{ 'assets/scripts/jquery.maskMoney.js'|theme }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         {% framework extras%}
         {% scripts %}
+        <script type="text/javascript">
+            $(function() {
+                $('[data-owl="money"][data-alias="formPrice"] input[name="price"]').maskMoney({
+                    thousands: ",",
+                    decimal: ".",
+                    suffix: "",
+                    prefix: "",
+                    allowNegative: false			})
+                $('input[name="price"]').keyup(function(event) {
+                    $('.owl-money input + span').html($('.owl-money input + span').data('actual-price'));
+                });
+    
+                $('.trigger-currency-field input[type="checkbox"]').change(function(){
+                    if($(this).is(':checked')){
+                        $('.owl-money input + span').removeClass('old-input-hide');
+                    }else{
+                        $('.owl-money input + span').addClass('old-input-hide');
+                    }
+                })
+                });
+        </script>
     </body>
 </html>

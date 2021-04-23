@@ -1,8 +1,9 @@
-{% if showSlide %}
+{% if showSlideCategory %}
+{% set background = ["assets/images/slide-1.png", "assets/images/slide-2.png"] %}
 <div class="swiper-wrapper">
-    {% for post in showSlide %}
+    {% for key,post in showSlideCategory %}
     <div class="swiper-slide">
-        <img src="https://images.pexels.com/photos/819372/pexels-photo-819372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+        <img src="{{ background[key]|theme }}" alt="">
         <div class="container-master">
             <div class="banner-text">
                 <h1 class="banner-text-title">{{ post.name }}</h1>

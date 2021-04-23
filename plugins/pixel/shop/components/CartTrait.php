@@ -9,9 +9,19 @@ trait CartTrait{
 
     protected function onAddToCart(){
         $this->prepareLang();
-        
+
     	$cart = Cart::load();
     	$item = Item::find(input('id'));
+
+		// $file = $item->attachments->first();
+		// dd($file->path);
+		// dd($file->output());
+		// return $file->output();
+		// return [
+    	// 	'attachments' => $file->output(),
+		// ];
+
+		// return false;
 
     	$options = input('options');
     	$optionsIndex = $this->parseOptions(input('options_index'));
@@ -20,7 +30,7 @@ trait CartTrait{
 		if((int)$qty < 1) {
 			$qty = 1;
 		}
-		$price = input('price');
+		$price = input('price_download') ? input('price_download') : input('price');
 
     	if($item->is_with_variants){
 	    	foreach ($item->variants as $variant) {					

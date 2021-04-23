@@ -136,7 +136,6 @@ class Home extends ComponentBase
 
 		$this->products = $this->page['products'] = $this->loadProducts();
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
-
 		$this->page['showSlide'] = $this->showSlideHomePage();
 		$this->page['showNewsProduct'] = $this->showNewsProducts();
 		$this->page['showMerchandise'] = $this->showMerchandise();
