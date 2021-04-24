@@ -62,7 +62,7 @@
                     <input type="hidden" name="old_price_with_tax" value="{{ product.getOldPrice() }}">
                 </div>
                 <input name="quantity" type="hidden" value="1" min="1">
-                <input name="type_buy" type="hidden" id="type_buy" value="cart_buy_money">
+                <input name="type_buy" type="hidden" id="type_buy">
                 <input name="price_download" id="price_download" type="hidden">
                 <input name="email_download" id="email_download" type="hidden">
                 <input name="quantity" type="hidden" value="1" min="1">
@@ -73,11 +73,11 @@
                 <!-- <div class="btn-more blu">
                     <a href="" title="">{{ 'pixel.shop::lang.frontend.addtocart'|trans }}</a>
                 </div> -->
-                <button type="submit" class="btn btn-primary btn-block btn-footer add-to-cart-btn" data-attach-loading>
+                <button type="submit" class="btn-block btn-footer add-to-cart-btn" data-attach-loading>
                     {{ 'pixel.shop::lang.frontend.addtocart'|trans }}
                 </button>
 
-                <button type="button" class="btn btn-primary btn-block btn-footer download-book-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" class="btn-block btn-footer download-book-btn" data-toggle="modal" data-target="#exampleModalCenter">
                     Download Digtal
                 </button>
             </div>
@@ -246,31 +246,20 @@
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Download Digtal</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
         <div class="modal-body">
             <form action="" method="POST" role="form">
                 <div id="form-download-book"></div>
                 <div class="form-group">
                     <div data-owl="money" class="owl-money" data-alias="formPrice">
-                        <label for="">Price</label>
-                        <input type="text" name="price" class="form-control owl-money-input " placeholder="0.00" id="value-price" required="">
+                        <h5 class="title-money-download" for="">How much do you want to buy this book</h5>
+                        <input type="text" name="price" class="form-control value-money-down owl-money-input " placeholder="0.00" id="value-price" required="">
+                        <i class="fa fa-usd icon-dollar-input" aria-hidden="true"></i>
                         </br>
-                        <button type="button" id="btn-download" class="btn btn-primary">Submit</button>
+
+                        <button type="button" id="btn-download" class="btn-next-down">Next</button>
                     </div>
-                   
                 </div>
-                
             </form>
-            
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

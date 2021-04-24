@@ -12,25 +12,33 @@ trait CartTrait{
 
     	$cart = Cart::load();
     	$item = Item::find(input('id'));
-
-		// $file = $item->attachments->first();
-		// dd($file->path);
-		// dd($file->output());
-		// return $file->output();
-		// return [
-    	// 	'attachments' => $file->output(),
-		// ];
-
-		// return false;
+		if(input('type_buy') == 'email_buy_free') {
+			$file = $item->attachments->first();
+			if($file) {
+				return [
+					'url' 		  => $file->path,
+					'type'		  => 'download-by-email',
+					'name'		  => $file->file_name
+				];
+			} else {
+				return [
+					'type' 		  => 'error'
+				];
+			}
+		}
 
     	$options = input('options');
     	$optionsIndex = $this->parseOptions(input('options_index'));
     	$index = input('options_index');
     	$qty = input('quantity');
+		$price = input('price');
 		if((int)$qty < 1) {
 			$qty = 1;
 		}
-		$price = input('price_download') ? input('price_download') : input('price');
+
+		if(input('type_buy') == 'cart_buy_money') {
+			$price = input('price_download');
+		}
 
     	if($item->is_with_variants){
 	    	foreach ($item->variants as $variant) {					

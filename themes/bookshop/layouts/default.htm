@@ -16,7 +16,6 @@ position = "bottom-right"
         <meta name="author" content="OctoberCMS">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="generator" content="OctoberCMS">
-        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ 'assets/styles/main.css'|theme }}">
         <link rel="stylesheet" href="{{ 'assets/styles/banner.css'|theme }}">
         <link rel="stylesheet" href="{{ 'assets/styles/homepage.css'|theme }}">
@@ -39,7 +38,10 @@ position = "bottom-right"
             {% partial 'site/header' %}
         </header>
         
-        {% component 'cartButton' %}
+        <div style="display:none;">
+            {% component 'cartButton' %}
+        </div>
+
         <!-- Content -->
         <main>
             {% page %}
