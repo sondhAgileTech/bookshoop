@@ -1,7 +1,9 @@
 <div data-control="toolbar" class="toolbar-modal">
 	<div class="pull-right" style="margin-top: 4px;">
-		<img style="float: left; margin: -6px 6px;" src="<?= url('/plugins/pixel/shop/assets/img/icon-'. $formModel->gateway .'.svg') ?>" alt="" width="32" height="32">
-		<b><?= trans('pixel.shop::lang.fields.'.$formModel->gateway) ?></b>		
+		<?php if(!$formModel->gateway == 'gm'): ?>
+			<img style="float: left; margin: -6px 6px;" src="<?= url('/plugins/pixel/shop/assets/img/icon-'. $formModel->gateway .'.svg') ?>" alt="" width="32" height="32">
+			<b><?= trans('pixel.shop::lang.fields.'.$formModel->gateway) ?></b>
+		<?php endif ?>
 	</div>
 
 	<?php if($formModel->status == 'await_pay'): ?>
@@ -13,7 +15,9 @@
 	<?php endif ?>
 
 	<?php if($formModel->status != 'completed' && $formModel->status != 'cancelled'): ?>
-		<button data-request="onChangeStatus" data-request-confirm="<?= trans('pixel.shop::lang.messages.status_confirm') ?>" data-request-data="status: 'cancelled', order_id: '<?= $formModel->id ?>'" class="btn btn-danger btn-sm oc-icon-ban"><?= e(trans('pixel.shop::lang.status.cancel_order')) ?></button>
+		<?php if(!$formModel->gateway == 'gm'): ?>
+			<button data-request="onChangeStatus" data-request-confirm="<?= trans('pixel.shop::lang.messages.status_confirm') ?>" data-request-data="status: 'cancelled', order_id: '<?= $formModel->id ?>'" class="btn btn-danger btn-sm oc-icon-ban"><?= e(trans('pixel.shop::lang.status.cancel_order')) ?></button>
+		<?php endif ?>
     <?php endif ?>
     
     <?= $this->fireViewEvent('pixel.shop.extendOrderActions') ?>

@@ -4,7 +4,7 @@ use Flash;
 use Pixel\Shop\Models\Item;
 use Pixel\Shop\Classes\Cart;
 use Pixel\Shop\Models\Coupon;
-
+use Pixel\Shop\Models\Order;
 trait CartTrait{
 
     protected function onAddToCart(){
@@ -15,6 +15,31 @@ trait CartTrait{
 		if(input('type_buy') == 'email_buy_free') {
 			$file = $item->attachments->first();
 			if($file) {
+				if($item->gallery->first()) {
+					$thumb = $item->gallery->first()->path ? $item->gallery->first()->path : "";
+				} else {
+					$thumb = "";
+				}
+				$data = [
+					"id" => $item->id,
+					"index" => null,
+					"title" =>  $item->name,
+					"description" => $item->description,
+					"tax" => 0,
+					"price" => 0,
+					"quantity" => 0,
+					"total" => 0,
+					"thumb" => $thumb ? $thumb : ""
+				];
+
+				$order = new Order;
+				$order->status = 'download_by_email';
+				$order->gateway = 'gm';
+				$order->customer_email = input('email_download');
+				$order->items = [$data];
+				$order->currency = 'USD';
+				$order->save();
+
 				return [
 					'url' 		  => $file->path,
 					'type'		  => 'download-by-email',

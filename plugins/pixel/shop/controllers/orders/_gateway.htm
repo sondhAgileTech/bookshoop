@@ -1,2 +1,6 @@
-<img style="float: left; margin: -6px 6px;" src="<?= url('/plugins/pixel/shop/assets/img/icon-'. $value .'.svg') ?>" alt="" width="32" height="32">
+<?php if($value == 'gm'): ?>
+<?php else : ?>
+    <img style="float: left; margin: -6px 6px;" src="<?= url('/plugins/pixel/shop/assets/img/icon-'. $value .'.svg')  ?>" alt="" width="32" height="32">
+<?php endif ?>
+
 <b><?= trans('pixel.shop::lang.fields.'.$value) ?></b>

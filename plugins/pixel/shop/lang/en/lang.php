@@ -31,6 +31,7 @@
         'manage' => 'Manage',
     ],
     'fields' => [
+        'gm' => 'None',
         'shop' => 'Shop',
         'shop_name' => 'Shop name',
         'shop_email' => 'Shop contact email',
@@ -218,6 +219,7 @@
         'values' => 'Values'
     ],
     'status' => [
+        'download_by_email' => 'Download by email',
     	'pending' => 'Pending',
     	'await_pay' => 'Awaiting Payment',
     	'await_fulfill' => 'Awaiting Fulfillment',

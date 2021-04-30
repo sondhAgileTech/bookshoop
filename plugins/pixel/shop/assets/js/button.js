@@ -7,6 +7,8 @@ CartButton.onSuccess = function(data) {
 
 	if(data.type == 'download-by-email') {
 		download_file(data.url,data.name);
+		$("#type_buy").val("");
+		$("#email_download").val("");
 	}
 
 	if(data.type == 'error'){

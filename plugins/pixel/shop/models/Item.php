@@ -63,6 +63,9 @@ class Item extends Model{
 	// ADJUNTOS Y ARCHIVOS
 	public $attachMany = [
 		'gallery' => ['System\Models\File'],
+	];
+
+	public $attachOne = [
 		'attachments' => ['System\Models\File'],
 	];
 

@@ -77,9 +77,12 @@
                     {{ 'pixel.shop::lang.frontend.addtocart'|trans }}
                 </button>
 
-                <button type="button" class="btn-block btn-footer download-book-btn" data-toggle="modal" data-target="#exampleModalCenter">
-                    Download Digtal
-                </button>
+                {% if product.attachments|length > 0 %}
+                    <button type="button" class="btn-block btn-footer download-book-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                        Download Digtal
+                    </button>
+                {% endif  %}
+
             </div>
             <hr>
 		</div>

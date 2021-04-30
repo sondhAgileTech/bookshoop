@@ -194,12 +194,13 @@
   font-family: Nunito;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.06rem;
-  line-height: 24px;
-  max-height: 48px;
-  overflow: hidden;
+  size: 1.06rem;
   color: #fff;
-  margin-top: 1.3rem;
+  font-size: 1rem;
+  line-height: 22px;
+  height: 44px;
+  overflow: hidden;
+  margin-top: 0.8rem;
 }
 
 .ss-post-list .ss-box-item .ss-item .item-body .btn-more {
@@ -258,7 +259,6 @@
 }
 
 .ss-shop-list .ss-list-body {
-  margin-top: 4rem;
   margin-left: -15px;
   margin-right: -15px;
   display: -webkit-box;
@@ -271,6 +271,7 @@
 .ss-shop-list .ss-list-body .ss-box-item {
   width: calc(100%/4);
   padding: 0 15px;
+  margin-top: 4rem;
 }
 
 .ss-shop-list .ss-list-body .ss-box-item .ss-item:hover .item-img .imgc img {
@@ -345,7 +346,7 @@
 .ss-shop-list .ss-list-body .ss-box-item .ss-item .item-body .btn-more a {
   height: 39px;
   line-height: 39px;
-  width: 115px;
+  width: 150px;
   font-size: 0.9rem;
 }
 
@@ -455,6 +456,7 @@
   max-height: 4.2rem;
   overflow: hidden;
   color: #333;
+  height: 65px;
   margin-top: 0.5rem;
 }
 
