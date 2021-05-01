@@ -88,8 +88,7 @@ class Cart{
 		];
 
 		if($item->image)
-			$data['thumb'] = $item->image->getThumb(42, 42, 'crop');
-
+			$data['thumb'] = $item->image->getThumb(450, 'auto');
 		$this->items[] = $data;
 
 		return $data;

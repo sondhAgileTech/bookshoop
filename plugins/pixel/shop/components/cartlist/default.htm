@@ -1,0 +1,78 @@
+<div class="multi-slide-wrapper open">
+    <div class="multi-slideout-container">
+       <div class="multi-slideout-close"><span>Close</span></div>
+       <div class="slide-out-tabs open"></div>
+       <div class="slide-out-content no-minicart">
+          <div class="cart-page">
+             <div class="cart-container">
+                <div class="lhs">
+                   <div class="cart-items-container">
+                      <div class="cart-item-list-wrapper ">
+                         <div class="cart-item-list">
+                           {% for item in cart.items %}
+                              <div class="cart-item  css-0">
+                                 <div class="cart-item-wrapper">
+                                    <div class="cart-item-image">
+                                       <input class="btn-select-item" type="checkbox"></input>
+                                       <a href="">
+                                          {% if item.thumb %}
+                                             <img src="{{ item.thumb }}" class="xzoom-gallery xactive" alt="">
+                                          {% endif %}
+                                       </a>
+                                    </div>
+                                    <div class="cart-item-details">
+                                       <div class="cart-item-info">
+                                          <div class="cart-item-name">
+                                             <span class="item-brand-name">{{ item.price|currency }} </span>
+                                             <a href="">
+                                                {{ item.title }}
+                                             </a>
+                                             <div class="cart-item-qty" data-label="Qty">
+                                                <form data-request="onAddToCartItem" data-request-flash data-request-success="CartButton.onSuccessAddMoreItem(data)" id="form-add-to-cart-item">
+                                                   <input type="hidden" name="id" value="{{ item.id }}" />
+                                                   <div class="qty-selector-items">
+                                                      <button type="submit" class="qty-btn decrement-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" min="1">
+                                                         <span class="icon-style" aria-hidden="true">–</span>
+                                                      </button>
+                                                      <input name="quantity" class="quantity-input" type="number" id="qty" title="Quantity" placeholder="1" name="product-qty" value="{{ item.quantity }}">
+                                                      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" type="submit" class="qty-btn increment-btn">
+                                                         <span class="icon-style" aria-hidden="true">+</span>
+                                                      </button>
+                                                   </div>
+                                                </form>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           {% endfor %}
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="rhs-cart">
+                  <div class="summary-wrapper ">
+                     <div class="summary-block">
+                        <div class="cart-subtotal">
+                           <div class="row">
+                              <div class="col-left">Price Total</div>
+                              <div class="col-right cart-subtotal-value">{{ cart.total|currency }}</div>
+                           </div>
+                        </div>
+                        <div class="button-sticky-wrap">
+                           <div class="btn-chk-wrapper">
+                              <a href="{{cart_page|page}}" type="button" class="btn btn-block btn-lg">
+                                 CHECKOUT &nbsp;   
+                              <span class="btn-co">{{ cart.total|currency }}</span>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>

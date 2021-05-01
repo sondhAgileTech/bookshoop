@@ -15,7 +15,21 @@ CartButton.onSuccess = function(data) {
 		alert("Sorry ! Not available book to download");	
 	}
     if(data.itemAdded) CartButton.show();
+	window.location.reload();
 }
+
+
+CartButton.onSuccessAddMoreItem = function(data) {
+
+	var total = parseFloat(data.total).toFixed(2);
+	$(".cart-subtotal-value").text(`$${total}`);
+	$(".btn-co").text(`${total}`);
+    if(data.itemAdded) CartButton.show();
+
+
+}
+
+
 
 CartButton.show = function(text){
 	$('.shop__cart-button').removeClass('empty');

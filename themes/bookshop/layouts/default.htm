@@ -3,6 +3,10 @@ cartPage = "cart"
 colorBG = "#C43730"
 color = "#FFFFFF"
 position = "bottom-right"
+
+[cartlist]
+productPage = "product"
+returnPage = "return"
 ==
 <!DOCTYPE html>
 <html lang="">
@@ -41,10 +45,14 @@ position = "bottom-right"
         <div style="display:none;">
             {% component 'cartButton' %}
         </div>
+        
+        
 
         <!-- Content -->
         <main>
+            {% component 'cartlist' %}
             {% page %}
+            <div class="global-overlay overlay-open"></div>
         </main>
 
         {% partial 'site/footer' %}

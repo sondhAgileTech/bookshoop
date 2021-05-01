@@ -16,16 +16,19 @@ use Pixel\Shop\Components\CartTrait;
 use Pixel\Shop\Components\PaymentTrait;
 use Pixel\Shop\Models\GatewaysSettings;
 use Pixel\Shop\Models\SalesSettings;
+use Pixel\Shop\Models\Item;
+use Pixel\Shop\Models\Coupon;
 
-class CartContainer extends ComponentBase{
 
+class CartList extends ComponentBase
+{
 	use CartTrait;
 	use PaymentTrait;
 
 	public function componentDetails(){
 		return [
 			'name'        => 'Cart',
-			'description' => 'All operation from add to basket to finish order'
+			'description' => 'show list item in cart'
 		];
 	}
 
@@ -42,6 +45,26 @@ class CartContainer extends ComponentBase{
 				'type'        => 'dropdown',
 				'default'     => 'return',
             ]
+		];
+    }
+
+	protected function onAddToCartItem(){
+        $this->prepareLang();
+    	$cart = Cart::load();
+
+		foreach ($cart->items as $key => $value) {
+			if($value['id'] == (int)input('id')) {
+				$value['quantity'] = input('quantity');
+				$cart->items[$key]['quantity'] = input('quantity');
+				$cart->items[$key]['total'] = input('quantity') * $value['price'];
+				$cart->save();
+			}
+		}
+		$cart->updateTotals();
+		$cart->save();
+
+		return [
+			'total' => $cart->total
 		];
     }
     
@@ -156,6 +179,7 @@ class CartContainer extends ComponentBase{
 		}
 
 		$this->page['cart'] = $cart = Cart::load();
+
 		$this->page['user'] = $user = $this->user();
 
 		$this->page['product_page'] = $this->property('productPage');
@@ -198,13 +222,8 @@ class CartContainer extends ComponentBase{
         $this->page['methods_list'] = $billingCountry && property_exists($billingCountry, 'code') ? $this->getPaymentMethodsList($billingCountry->code) : null;
         $this->page['method_country_code'] = $billingCountry->code ?? null;
 
-		$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-		$this->addCss('/plugins/pixel/shop/assets/css/cart.css');
 		$this->addCss('/plugins/pixel/shop/assets/css/cart_list.css');
-        $this->addJs('/plugins/pixel/shop/assets/js/jquery.mask.min.js');
-		$this->addJs('/plugins/pixel/shop/assets/js/jquery.validate.min.js');
-        $this->addJs('/plugins/pixel/shop/assets/js/jquery.steps.min.js');
-		$this->addJs('/plugins/pixel/shop/assets/js/cart.js');
+
 	}
 
 	public function user(){

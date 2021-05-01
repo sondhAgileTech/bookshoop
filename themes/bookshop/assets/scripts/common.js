@@ -64,4 +64,19 @@ $(document).ready(function(){
     
         return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
     };
+
+    $("#show-cart").click(function() {
+        $(".multi-slide-wrapper").css("display","block");
+        $(".global-overlay").css("display", "block");
+    });
+
+    $(".multi-slideout-close").click(function() {
+        $(".multi-slide-wrapper").css("display","none");
+        $(".global-overlay").css("display", "none");
+    });
+
+    $(".overlay-open").click(function() {
+        $(".multi-slide-wrapper").css("display","none");
+        $(".global-overlay").css("display", "none");
+    })
 });

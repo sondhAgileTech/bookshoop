@@ -44,6 +44,7 @@ class Plugin extends PluginBase{
 			'Pixel\Shop\Components\UserProfile' => 'userProfile',
 			'Pixel\Shop\Components\Home' => 'homePage',
 			'Pixel\Shop\Components\Blog' => 'blog',
+			'Pixel\Shop\Components\CartList' => 'cartlist',
 		];
 	}
 

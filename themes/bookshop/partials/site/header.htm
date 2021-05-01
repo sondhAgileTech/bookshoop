@@ -19,7 +19,7 @@ numberOfLevels = 2
                     {% component 'menu' %}
                 </nav>
                 <div class="ss-cart">
-                    <a href="{{ cart_page|page }}" title=""><img src="{{ 'assets/images/icons/Buy.png'|theme }}" alt="">
+                    <a id="show-cart" style="cursor: pointer;"><img src="{{ 'assets/images/icons/Buy.png'|theme }}" alt="">
                         <span class="shop__items-count shop__cart-button-text-accent shop__cart-button-border" id="cart_count"> {{ cart_count }}</span>
                     </a>
                 </div>
