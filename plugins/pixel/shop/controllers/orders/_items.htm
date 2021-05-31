@@ -3,6 +3,7 @@
 		<tr>
             <th width="36"></th>
 			<th><?= trans('pixel.shop::lang.fields.description') ?></th>
+			<th>status</th>
 			<th width="100" class="text-right"><?= trans('pixel.shop::lang.fields.price') ?></th>
 			<th width="60" class="text-center"><?= trans('pixel.shop::lang.fields.qty') ?></th>
 			<th width="100" class="text-right"><?= trans('pixel.shop::lang.fields.total') ?></th>
@@ -22,6 +23,13 @@
 				<br><?= $item['description'] ?>
 				<?php endif; ?>
 			</td>
+			<?php if(isset($item['download_price']) && $item['download_price'] == 1 ): ?>
+			<td valign="middle" style="vertical-align: middle">
+				<br>Download Digtal by price
+			</td>
+			<?php else: ?>
+				<td></td>
+			<?php endif; ?>
 			<td class="text-right">
 				<?= Currency::format($item['price']) ?>
 			</td>

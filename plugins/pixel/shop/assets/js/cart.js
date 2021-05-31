@@ -144,8 +144,48 @@ Cart.cardTypeFromNumber = function (number) {
     return "";
 };
 
+/* Helper function */
+function download_file(fileURL, fileName) {
+    // for non-IE
+    if (!window.ActiveXObject) {
+        var save = document.createElement('a');
+        save.href = fileURL;
+        save.target = '_blank';
+        var filename = fileURL.substring(fileURL.lastIndexOf('/')+1);
+        save.download = fileName || filename;
+	       if ( navigator.userAgent.toLowerCase().match(/(ipad|iphone|safari)/) && navigator.userAgent.search("Chrome") < 0) {
+				document.location = save.href; 
+// window event not working here
+			}else{
+		        var evt = new MouseEvent('click', {
+		            'view': window,
+		            'bubbles': true,
+		            'cancelable': false
+		        });
+		        save.dispatchEvent(evt);
+		        (window.URL || window.webkitURL).revokeObjectURL(save.href);
+			}	
+    }
+
+    // for IE < 11
+    else if ( !! window.ActiveXObject && document.execCommand)     {
+        var _window = window.open(fileURL, '_blank');
+        _window.document.close();
+        _window.document.execCommand('SaveAs', true, fileName || fileURL)
+        _window.close();
+    }
+}
+
 Cart.focusToInvalidFields = function (data) {
+console.log(data.responseJSON);
     $('[data-validate-for]').html('').removeClass('visible');
+    if(data.responseJSON) {
+        $.each(data.responseJSON.order.items, function (i, val) { 
+            if(val['path_file_download'] != 0) {
+                download_file(val['path_file_download'], val['name_file_download']);
+            }
+        });
+    }
 
     if(data.responseJSON && data.responseJSON.X_OCTOBER_ERROR_FIELDS){
         $.each(data.responseJSON.X_OCTOBER_ERROR_FIELDS, function (i, val) { 
@@ -164,7 +204,6 @@ Cart.focusToInvalidFields = function (data) {
         return;
 
     var index = firstField.closest('.--body').data('index');
-    console.log('index', index);
     $(".shop__steps").steps("setStep", index);
 };
 
@@ -245,4 +284,15 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
         $(".shop__steps").steps("next");
     });
+
+    $('.increment-btn').click(function() {
+		$('#add-more-quantity-cart').val('plus');
+	});
+	$('.decrement-btn').click(function() {
+		$('#add-more-quantity-cart').val('subtract');
+	});
+    $('.btn-continute-pay').click(function() {
+		var shipping = $(".shipping-address").val();
+        $('#text-shiping').text(shipping);
+	});
 });

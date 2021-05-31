@@ -200,7 +200,8 @@ class CartContainer extends ComponentBase{
 
 		$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 		$this->addCss('/plugins/pixel/shop/assets/css/cart.css');
-		$this->addCss('/plugins/pixel/shop/assets/css/cart_list.css');
+		$this->addCss('/plugins/pixel/shop/assets/css/list_cart_checkout.css');
+		$this->addCss('/plugins/pixel/shop/assets/css/cart_step.css');
         $this->addJs('/plugins/pixel/shop/assets/js/jquery.mask.min.js');
 		$this->addJs('/plugins/pixel/shop/assets/js/jquery.validate.min.js');
         $this->addJs('/plugins/pixel/shop/assets/js/jquery.steps.min.js');
@@ -224,11 +225,15 @@ class CartContainer extends ComponentBase{
             $cart->save();
 
 			$return = [
-                '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]),
-                '.shippingStateContainer' => $this->renderPartial('@shipping_states', [
+                '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]),
+                '.shippingStateContainer' => $this->renderPartial('@shiping_state_option', [
                     'shipping_states' => $country->states
                 ]), 
-                'code' => $country->code
+                'code' => $country->code,
+				'.shop__methods-list' => $this->renderPartial('@payment_cart_step_2', [
+                    'methods_list' => $this->getPaymentMethodsList(input('shipping_address.country')),
+                    'method_country_code' => input('shipping_address.country')
+				])
             ];
 
 			if(input('is_ship_same_bill'))
@@ -249,7 +254,7 @@ class CartContainer extends ComponentBase{
 				'billing_states' => $country->states
 			]), 'code' => $country->code];
 
-			$return['.shop__methods-list'] = $this->renderPartial('@methods', [
+			$return['.shop__methods-list'] = $this->renderPartial('@payment_cart_step_2', [
                 'methods_list' => $this->getPaymentMethodsList(input('billing_address.country')),
                 'method_country_code' => input('billing_address.country')
 			]);
@@ -267,7 +272,7 @@ class CartContainer extends ComponentBase{
 		$cart->updateTotals();
 		$cart->save();
 
-		return [ '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]) ];
+		return [ '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]) ];
     }
     
     public function onSameAddressChange(){
@@ -282,8 +287,8 @@ class CartContainer extends ComponentBase{
         $methodCountry = input('is_ship_same_bill') ? 'shipping' : 'billing';
 
 		return [ 
-            '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]),
-            '.shop__methods-list' => $this->renderPartial('@methods', [
+            '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]),
+            '.shop__methods-list' => $this->renderPartial('@payment_cart_step_2', [
                 'methods_list' => $this->getPaymentMethodsList(input($methodCountry . '_address.country')),
                 'method_country_code' => input($methodCountry . '_address.country')
 			])

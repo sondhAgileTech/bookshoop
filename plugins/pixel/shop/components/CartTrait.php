@@ -5,15 +5,66 @@ use Pixel\Shop\Models\Item;
 use Pixel\Shop\Classes\Cart;
 use Pixel\Shop\Models\Coupon;
 use Pixel\Shop\Models\Order;
-trait CartTrait{
+use Illuminate\Support\Str;
 
+trait CartTrait{
+	public $quantity = 1;
+	public $total_quantity = 0;
     protected function onAddToCart(){
         $this->prepareLang();
 
     	$cart = Cart::load();
     	$item = Item::find(input('id'));
+
+		if(input('type_buy') == "nomal-cart") {
+			if(!empty($cart->items)) {
+				foreach ($cart->items as $key => $value) {
+					if($value['id'] === (int)input('id') && $value['download_price'] === 0) {
+						if($cart->items[$key]['quantity'] >= $value['total_quantity_in_stock']) {
+							return [
+								'type' 		  => 'error_cart_quantity'
+							];
+						}
+						$cart->items[$key]['quantity'] = $value['quantity'] + 1 ;
+						$cart->items[$key]['total'] = $cart->items[$key]['quantity'] * $value['price'];
+						$cart->items[$key]['total_quantity'] = $cart->items[$key]['quantity'];
+						$cart->items[$key]['status'] = 1;
+						$this->quantity = $cart->items[$key]['quantity'];
+						$cart->updateTotals();
+						$cart->save();
+						return [
+							'#cart_total' => $cart->total,
+							'type'   => 'success'
+						];
+					}
+				}
+			}
+
+			// if(!empty($cart->items)) {
+			// 	foreach ($cart->items as $key => $value) {
+			// 		if($value['id'] === (int)input('id') && $value['download_price'] === 0) {
+			// 			$this->quantity = $this->quantity + $value['quantity'];
+			// 		}
+			// 	}
+			// }
+			// if($this->quantity > $item->quantity) {
+			// 	return [
+			// 		'type' 		  => 'error_cart_quantity'
+			// 	];
+			// }
+			// if(!empty($cart->items)) {
+			// 	foreach ($cart->items as $key => $value) {
+			// 		if($value['id'] === (int)input('id') && $value['download_price'] === 0) {
+			// 			$cart->items[$key]['total_quantity'] = $this->quantity;
+			// 			$cart->save();
+			// 		}
+			// 	}
+			// }
+			// $item['total_quantity'] = $this->quantity;
+		}
+
 		if(input('type_buy') == 'email_buy_free') {
-			$file = $item->attachments->first();
+			$file = Item::where('id', input('id'))->first();
 			if($file) {
 				if($item->gallery->first()) {
 					$thumb = $item->gallery->first()->path ? $item->gallery->first()->path : "";
@@ -41,9 +92,9 @@ trait CartTrait{
 				$order->save();
 
 				return [
-					'url' 		  => $file->path,
+					'url' 		  => $file->attachments->path,
 					'type'		  => 'download-by-email',
-					'name'		  => $file->file_name
+					'name'		  => $file->attachments->file_name
 				];
 			} else {
 				return [
@@ -63,6 +114,13 @@ trait CartTrait{
 
 		if(input('type_buy') == 'cart_buy_money') {
 			$price = input('price_download');
+			$item['download_price'] = 1;
+			$file = Item::where('id', input('id'))->first();
+			if($file) {
+				$item['path_file_download'] = $file->attachments->path;
+				$item['name_file_download'] = $file->attachments->file_name;
+				$item['fake_id'] = Str::random(5);
+			}
 		}
 
     	if($item->is_with_variants){
@@ -78,6 +136,7 @@ trait CartTrait{
 			}
 		}
 
+		$item['fake_id'] = Str::random(5);
     	$itemAdded = $cart->addItem($item, $options, $price, $qty, $index);
 
     	$cart->updateTotals();
@@ -87,7 +146,8 @@ trait CartTrait{
     		'#cart_count' => count($cart->items),
     		'#cart_total' => $cart->total,
     		'itemName' => $item->name,
-    		'itemAdded' => $itemAdded
+    		'itemAdded' => $itemAdded,
+			'type'   => 'success'
     	];
     }
 
@@ -118,7 +178,7 @@ trait CartTrait{
 
     	Flash::success(trans('pixel.shop::lang.messages.item_removed'));
 
-    	return [ '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]) ];
+    	return [ '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]) ];
     }
 
     protected function onClearCart(){
@@ -128,7 +188,7 @@ trait CartTrait{
 
     	Flash::success(trans('pixel.shop::lang.messages.cart_clear'));
 
-    	return [ '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart, 'product_page' => $this->property('productPage') ]) ];
+    	return [ '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart, 'product_page' => $this->property('productPage') ]) ];
     }
 
     protected function onClearCoupon(){
@@ -145,7 +205,7 @@ trait CartTrait{
 
     	Flash::success(trans('pixel.shop::lang.messages.coupon_clear'));
 
-    	return [ '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]) ];
+    	return [ '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]) ];
     }
 
     protected function onCheckCoupon(){
@@ -175,7 +235,7 @@ trait CartTrait{
     	$cart->save();
 
     	return [ 
-    		'#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]),
+    		'#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]),
     		Flash::success(trans('pixel.shop::lang.coupon_codes.code_0'))
     	];
     }

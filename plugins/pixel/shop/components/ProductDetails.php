@@ -73,11 +73,13 @@ class ProductDetails extends AbstractFacebookComponent{
         
     	$slug = $this->property('slug');
     	$product = Item::where('slug', $slug)->where("is_visible", 1)->first();
-		if($product->type != "product") {
-			$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-		}
+		// if($product->type != "product") {
+		// 	$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+		// }
 
+		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
     	$this->addCss('/plugins/pixel/shop/assets/css/product.css');
+		$this->addCss('/plugins/pixel/shop/assets/css/alertify.min.css');
 		$this->addJs('/plugins/pixel/shop/assets/js/product.js');
 
 		if ($product == null)

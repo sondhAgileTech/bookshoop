@@ -82,9 +82,16 @@ class Cart{
 			"title" => $item->name,
 			"description" => $description,
 			"tax" => $tax,
+			"total_quantity_in_stock" => $item->quantity,
 			"price" => floatval($price),
-			"quantity" => intval($quantity),
-			"total" => $total
+			"quantity" => $item->download_price === 1 ? 0 : intval($quantity),
+			"status"  => 1,
+			"total" => $total,
+			"fake_id" => $item->fake_id,
+			"total_quantity" => intval($item->total_quantity),
+			"download_price" => $item->download_price === 1 ? 1 : 0,
+			"path_file_download" => $item->path_file_download ? $item->path_file_download : 0,
+			"name_file_download" => $item->name_file_download ? $item->name_file_download : 0
 		];
 
 		if($item->image)
@@ -165,7 +172,16 @@ class Cart{
 		$order->customer_email = $this->customer_email;
 		$order->customer_phone = $this->customer_phone;
 
-		$order->items = $this->items;
+		$item_order = [];
+		if(!empty($this->items)) {
+			foreach ($this->items as $key => $value) {
+				if($value['status'] == 1) {
+					$item_order [] = $value;
+				}
+			}
+		}
+
+		$order->items = $item_order;
 		$order->gateway = $this->gateway;
 		$order->currency = $this->currency;
 

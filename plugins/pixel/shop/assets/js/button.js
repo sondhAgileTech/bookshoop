@@ -4,6 +4,10 @@ CartButton.interval = null;
 CartButton.intervalTimeOut = 5000;
 
 CartButton.onSuccess = function(data) {
+	if(data.type == 'error_cart_quantity') {
+		alertify.notify('Sorry, this product is now out of stock', 'warning', 10);
+		return false;
+	}
 
 	if(data.type == 'download-by-email') {
 		download_file(data.url,data.name);
@@ -12,7 +16,11 @@ CartButton.onSuccess = function(data) {
 	}
 
 	if(data.type == 'error'){
-		alert("Sorry ! Not available book to download");	
+		alertify.error('Sorry ! Not available book to download');
+	}
+
+	if(data.type == 'success'){
+		alertify.notify('Add this item to cart success', 'success', 13);
 	}
     if(data.itemAdded) CartButton.show();
 	window.location.reload();
@@ -20,13 +28,39 @@ CartButton.onSuccess = function(data) {
 
 
 CartButton.onSuccessAddMoreItem = function(data) {
+	if(data.type == 'error_cart_quantity') {
+		alertify.notify('Sorry, this product is now out of stock', 'warning', 10);
+		$(`.quantity-${data.fake_id}`).val(data.current_quantity);
+		return false;
+	}
+	var total = parseFloat(data.total).toFixed(2);
+	$(".cart-subtotal-value").text(`$${total}`);
+	$(".btn-co").text(`$${total}`);
+	console.log(data.fake_id);
+	// console.log($("body").find(`.quantity-cart-${data.fake_id}`));
+	$("body").find(`.quantity-cart-${data.fake_id}`).val(data.current_quantity);
+	$("body").find(`.quantity-${data.fake_id}`).val(data.current_quantity);
+	// $(`.quantity-${data.fake_id}`).val(data.current_quantity);
+	// $(`.quantity-cart-${data.fake_id}`).val(data.current_quantity);
+	if(data.total_quantity < data.total_quantity_in_stock) {
+		$(`.plus-${data.fake_id}`).removeAttr("disabled");
+	} else {
+		$(`.plus-${data.fake_id}`).attr('disabled', true);
+	}
+
+    if(data.itemAdded) CartButton.show();
+}
+
+CartButton.onSuccessonChangeStatus = function(data) {
 
 	var total = parseFloat(data.total).toFixed(2);
 	$(".cart-subtotal-value").text(`$${total}`);
 	$(".btn-co").text(`${total}`);
     if(data.itemAdded) CartButton.show();
+}
 
-
+CartButton.onSuccessonRemoveItem = function(data) {
+	window.location.reload();
 }
 
 
@@ -74,4 +108,10 @@ function download_file(fileURL, fileName) {
 
 jQuery(document).ready(function($) {
 	$('.shop__cart-button').addClass('active');
+	$('.increment-btn').click(function() {
+		$('#add-more-quantity').val('plus');
+	});
+	$('.decrement-btn').click(function() {
+		$('#add-more-quantity').val('subtract');
+	});
 });

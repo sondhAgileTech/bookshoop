@@ -36,10 +36,10 @@ trait PaymentTrait{
 			'shipping_address.state' => 'required',
 			'shipping_address.city' => 'required|min:2|max:90',
 
-			'billing_address.first_line' => 'required_without:is_ship_same_bill|min:3|max:190',
-			'billing_address.country' => 'required_without:is_ship_same_bill',
-			'billing_address.state' => 'required_without:is_ship_same_bill',
-			'billing_address.city' => 'required_without:is_ship_same_bill|min:2|max:90',
+			// 'billing_address.first_line' => 'required_without:is_ship_same_bill|min:3|max:190',
+			// 'billing_address.country' => 'required_without:is_ship_same_bill',
+			// 'billing_address.state' => 'required_without:is_ship_same_bill',
+			// 'billing_address.city' => 'required_without:is_ship_same_bill|min:2|max:90',
 
 			'gateway' => 'required',
 
@@ -52,7 +52,7 @@ trait PaymentTrait{
 		if(input('shipping_zip_required') == 'required')
 			$rules['shipping_address.zip'] = 'required';
 
-		if(!input('is_ship_same_bill') && input('billing_zip_required') == 'required')
+		if(input('is_ship_same_bill') && input('billing_zip_required') == 'required')
 			$rules['billing_address.zip'] = 'required';
 
         $names = [
@@ -66,10 +66,10 @@ trait PaymentTrait{
 			'shipping_address.state' => strtolower( trans('pixel.shop::lang.fields.state') ),
 			'shipping_address.city' => strtolower( trans('pixel.shop::lang.fields.city') ),
 
-			'billing_address.first_line' => strtolower( trans('pixel.shop::lang.fields.address') ),
-			'billing_address.country' => strtolower( trans('pixel.shop::lang.fields.country') ),
-			'billing_address.state' => strtolower( trans('pixel.shop::lang.fields.state') ),
-			'billing_address.city' => strtolower( trans('pixel.shop::lang.fields.city') ),
+			// 'billing_address.first_line' => strtolower( trans('pixel.shop::lang.fields.address') ),
+			// 'billing_address.country' => strtolower( trans('pixel.shop::lang.fields.country') ),
+			// 'billing_address.state' => strtolower( trans('pixel.shop::lang.fields.state') ),
+			// 'billing_address.city' => strtolower( trans('pixel.shop::lang.fields.city') ),
 
 			'gateway' => strtolower( trans('pixel.shop::lang.fields.gateway') ),
 
@@ -99,7 +99,7 @@ trait PaymentTrait{
 		if(input('shipping_zip_required') == 'required')
 			$rules['shipping_address.zip'] = 'required';
 
-		if(!input('is_ship_same_bill') && input('billing_zip_required') == 'required')
+		if(input('is_ship_same_bill') && input('billing_zip_required') == 'required')
 			$rules['billing_address.zip'] = 'required';
 
 		$validation = Validator::make($data, $rules, trans('pixel.shop::validation'), $names);
@@ -128,7 +128,7 @@ trait PaymentTrait{
 		$cart->customer_phone = input('customer_phone');
 
 		$cart->shipping_address = input('shipping_address');
-		$cart->billing_address = input('is_ship_same_bill' == 'on') ? input('shipping_address') : input('billing_address');
+		$cart->billing_address = input('shipping_address') ? input('shipping_address') : '';
         $cart->notes = input('notes');
         $cart->custom_fields = input('custom_fields', array());
         
@@ -194,7 +194,7 @@ trait PaymentTrait{
 			]) ];
 		}
 
-		return [Flash::success('Jobs done!') , '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ])];
+		return [Flash::success('Jobs done!') , '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ])];
 	}
 
     protected function getPaymentMethodsList($country = null){
@@ -284,16 +284,16 @@ trait PaymentTrait{
 
 				"issueNumber" => $order->id,
 
-				"billingAddress1" => $order->billing_address['first_line'],
-				"billingAddress2" => $order->billing_address['second_line'],
-				"billingCity" => $order->billing_address['city'],
-				"billingState" => $order->billing_address['state'],
-				"billingCountry" => $order->billing_address['country'],
-				"billingPostcode" => $order->billing_address['zip'],
-				"billingPhone" => $order->customer_phone,
+				// "billingAddress1" => $order->billing_address['first_line'],
+				// "billingAddress2" => $order->billing_address['second_line'],
+				// "billingCity" => $order->billing_address['city'],
+				// "billingState" => $order->billing_address['state'],
+				// "billingCountry" => $order->billing_address['country'],
+				// "billingPostcode" => $order->billing_address['zip'],
+				// "billingPhone" => $order->customer_phone,
 
 				"shippingAddress1" => $order->shipping_address['first_line'],
-				"shippingAddress2" => $order->shipping_address['second_line'],
+				// "shippingAddress2" => $order->shipping_address['second_line'],
 				"shippingCity" => $order->shipping_address['city'],
 				"shippingState" => $order->shipping_address['state'],
 				"shippingCountry" => $order->shipping_address['country'],
@@ -333,7 +333,7 @@ trait PaymentTrait{
 					'order' => $order,
 					'settings' => $settings,
 					'thanks' => true
-				])];
+				]), 'order' => $order];
 			} else {
 				$eventLog = new \System\Models\EventLog();
 				$data = array();

@@ -8,7 +8,7 @@
             <h3>{{ 'pixel.shop::component.order.not_confirmed'|trans }}</h3>
             <p>{{ 'pixel.shop::component.order.not_confirmed_comment'|trans }}</p>
             {% else %}
-            <i class="fas fa-check-circle fa-3x pull-left text-success"></i>
+            <i class="fa fa-check-circle fa-3x pull-left text-success"></i>
             <h3>{{ 'pixel.shop::component.order.confirmed'|trans }}</h3>
             <p>{{ 'pixel.shop::component.order.confirmed_comment'|trans({email: order.customer_email}) }}</p>
             {% endif %}

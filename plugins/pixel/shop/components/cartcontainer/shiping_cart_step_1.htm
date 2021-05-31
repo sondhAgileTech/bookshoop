@@ -1,0 +1,100 @@
+<div class="wrapper-cart-container">
+    <div class="container">
+        <div class="row">
+            <div id="Shipping" class="tabcontent">
+                <div class="body_cart" style="width:95%;">
+                        <input type="email" placeholder="{{ 'pixel.shop::lang.components.cart_emailexample'|trans }}" value="{{ user.email ?: cart.customer_email }}" name="customer_email" required class="input_item"><br>
+                        <div class="invalid-feedback" data-validate-for="customer_email"></div>
+                        <input type="telephone" placeholder="Your phone" value="{{ user.phone ?: cart.customer_phone }}" name="customer_phone" minlength="8" required class="input_item"><br>
+                        <div class="invalid-feedback" data-validate-for="customer_phone"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" value="{{ user.name ?: cart.customer_first_name }}" name="customer_first_name" minlength="3" maxlength="60" required placeholder="First Name" class="input_item">
+                                <div class="invalid-feedback" data-validate-for="customer_first_name"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" value="{{ user.surname ?: cart.customer_last_name }}" name="customer_last_name" minlength="3" maxlength="60" required placeholder="First Name" class="input_item">
+                                <div class="invalid-feedback" data-validate-for="customer_last_name"></div>
+                            </div>
+                        </div>
+                        <h2>+ APARTMENT, BUILDING, FLOOR</h2>
+                        <!-- <select class="input_item">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="vw">VW</option>
+                            <option value="United State" selected>United State</option>
+                        </select> -->
+                        <select required
+                            class="input_item" 
+                            name="shipping_address[country]" 
+                            data-request="onShippingCountrySelect" 
+                            data-request-success="Cart.setShippingCountryOnSelect(data)">
+                            <option value="">{{ 'pixel.shop::component.cart.choose'|trans }}</option>
+                            {% for country in countries %}
+                            <option 
+                                value="{{ country.code }}" >
+                                <!-- {% if shipping_country == country.code %}
+                                selected="selected"
+                                {% endif %} -->
+                                {{ country.name }} ({{ country.code }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                        
+                        <div class="invalid-feedback" data-validate-for="shipping_address.country"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="shippingStateContainer">
+                                    {% partial '@shiping_state_option' %}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <!-- <input type="text" name="shipping_address[zip]" value="{{ user.shipping_address.zip ?: cart.shipping_address.zip }}" minlength="5" maxlength="12" required class="input_item">
+                                        <div class="invalid-feedback" data-validate-for="shipping_address.zip"></div> -->
+                                        <input type="text" placeholder="Zip code" class="input_item" name="shipping_address[zip]" value="{{ user.shipping_address.zip ?: cart.shipping_address.zip }}" minlength="5" maxlength="12">
+                                        <div class="invalid-feedback" data-validate-for="shipping_address.zip"></div>
+                                    </div>
+                                    <input type="hidden" name="shipping_zip_required">
+                                    <div class="col-lg-6">
+                                        <input type="text" placeholder="City" name="shipping_address[city]" value="{{ user.shipping_address.city ?: cart.shipping_address.city }}" minlength="2" maxlength="90" required class="input_item">
+                                        <div class="invalid-feedback" data-validate-for="shipping_address.city"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row small-gutter">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="input_item shipping-address" placeholder="{{ 'pixel.shop::lang.fields.shipping_address_ex1'|trans }}" value="{{ user.shipping_address.first_line ?: cart.shipping_address.first_line }}" name="shipping_address[first_line]" minlength="3" maxlength="190" required>
+                                    <div class="invalid-feedback" data-validate-for="shipping_address.first_line"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row small-gutter">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea placeholder="{{ 'pixel.shop::lang.fields.note'|trans }}" value="{{ user.email ?: cart.customer_email }}" name="notes" class="form-control" maxlength="200" rows="2">{{ cart.notes }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-lg-3">
+                        <div class="back_shopping">
+                            <span></span>
+                            <a href="#" onclick="openCity(event, 'Shipping')">Return to address</a>
+                        </div>
+    
+                    </div>
+                    <div class="col-lg-9">
+                        <button class="bg-button" onclick="openCity(event, 'Payment')">Continue</button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="multi-slide-wrapper-checkout open">
+    <div class="multi-slideout-container">
+       <div class="slide-out-content no-minicart">
+          <div class="cart-page">
+             <div class="cart-container">
+                <div class="lhs">
+                   <div class="cart-items-container">
+                      <div class="cart-item-list-wrapper ">
+                         <div class="cart-item-list">
+                            <!-- {% if cart.items|length > 0 %}
+                            <a href="#" 
+                                data-request="onClearCart" 
+                                data-request-flash 
+                                data-attach-loading
+                                class="list-group-item list-group-item-action list-group-item-danger active text-center">
+                                {{ 'pixel.shop::component.cart.empty_the_cart'|trans }}
+                            </a>
+                            {% endif %} -->
+                           {% for item in cart.items %}
+                              <div class="cart-item  css-0">
+                                {% if item.status == 1 %}
+                                    <div class="cart-item-wrapper">
+                                        <div class="cart-item-image">
+                                            <a href="">
+                                                {% if item.thumb %}
+                                                    <img src="{{ item.thumb }}" class="xzoom-gallery xactive" alt="">
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="cart-item-details">
+                                        <div class="cart-item-info">
+                                            <div class="cart-item-name">
+                                                <span class="item-brand-name">{{ item.price|currency }} </span>
+                                                <a href="">
+                                                    {{ item.title }}
+                                                </a>
+                                                <span>{{ item.download_price == 1 ? 'Download By Gigtal' : '' }}</span>
+                                                {% if item.download_price != 1 %}
+                                                   <div class="cart-item-qty" data-label="Qty">
+                                                      <form data-request="onAddToCartItem" data-request-flash data-request-success="CartButton.onSuccessAddMoreItem(data)" id="form-add-to-cart-item">
+                                                         <input type="hidden" name="id" value="{{ item.id }}" />
+                                                         <input type="hidden" name="fake_id" value="{{ item.fake_id }}" />
+                                                         <input type="hidden" name="status" id="add-more-quantity-cart" />
+                                                         <div class="qty-selector-items">
+                                                            <button type="submit" class="qty-btn decrement-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                               <span class="icon-style" aria-hidden="true">–</span>
+                                                            </button>
+                                                            <input name="quantity" class="quantity-input quantity-{{ item.fake_id }}" type="number" id="qty" title="Quantity" placeholder="1" name="product-qty" value="{{ item.quantity }}" min="1">
+                                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();" type="submit" class="qty-btn increment-btn plus-{{ item.fake_id }}" {{ item.total_quantity < item.total_quantity_in_stock ? '' : 'disabled' }}>
+                                                               <span class="icon-style" aria-hidden="true">+</span>
+                                                            </button>
+                                                         </div>
+                                                      </form>
+                                                   </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                              </div>
+                           {% endfor %}
+                         </div>
+                      </div>
+                   </div>
+                   <br>
+                </div>
+                <div class="col-md-10">
+                    {% if not cart.coupon and not cart.order %}
+                    <form style="border: none;" class="card" data-request="onCheckCoupon" data-request-validate data-request-flash>
+                        <div class="input-group">
+                            <input name="coupon_code" type="text" class="form-control" placeholder="Promo code">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn" style="background: #555555;color:#fff;" data-attach-loading>Apply</button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    {% endif %}
+                </div>
+                <br>
+                <div class="rhs-cart">
+
+                    <div class="summary-wrapper ">
+                        <div class="summary-block">
+                            <div class="cart-subtotal">
+                            <div class="row">
+                                <div class="col-left">Sub Total</div>
+                                <div class="col-right cart-subtotal-value">{{ cart.total|currency }}</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>

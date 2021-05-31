@@ -1,0 +1,14 @@
+{% if shipping_states|length > 0 %}
+    <select required class="input_item" name="shipping_address[state]" data-request="onShippingStateSelect" required>
+        <option value="">{{ 'pixel.shop::component.cart.choose'|trans }}</option>
+        {% for state in shipping_states %}
+        <option value="{{ state.code }}">
+            {{ state.name }}
+        </option>
+        <!-- {% if user.shipping_address.state == state.code or cart.shipping_address.state == state.code %}
+        selected="selected" {% endif %} -->
+        {% endfor %}
+    </select>
+{% else %}
+    <input type="text" class="input_item" value="{{ user.shipping_address.state ?: cart.shipping_address.state }}" name="shipping_address[state]" minlength="2" maxlength="90" required>
+{% endif %}

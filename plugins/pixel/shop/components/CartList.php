@@ -24,7 +24,9 @@ class CartList extends ComponentBase
 {
 	use CartTrait;
 	use PaymentTrait;
-
+	public $totalQty = 0;
+	public $totalQtyInStock = 0;
+	public $itemId = "";
 	public function componentDetails(){
 		return [
 			'name'        => 'Cart',
@@ -51,22 +53,118 @@ class CartList extends ComponentBase
 	protected function onAddToCartItem(){
         $this->prepareLang();
     	$cart = Cart::load();
-
+		$item = Item::find(input('id'));
 		foreach ($cart->items as $key => $value) {
-			if($value['id'] == (int)input('id')) {
-				$value['quantity'] = input('quantity');
-				$cart->items[$key]['quantity'] = input('quantity');
-				$cart->items[$key]['total'] = input('quantity') * $value['price'];
+			if($value['fake_id'] === input('fake_id')) {
+				if(input('status') === 'plus') {
+					if(input('quantity') > $value['total_quantity_in_stock']) {
+						return [
+							'type' => 'error_cart_quantity',
+							'current_quantity' => $value['quantity'],
+							'fake_id' => $value['fake_id']
+						];
+					}
+					if(($value['total_quantity'] >= $value['total_quantity_in_stock'])) {
+						return [
+							'type' => 'error_cart_quantity',
+							'current_quantity' => $value['quantity'],
+							'fake_id' => $value['fake_id']
+						];
+					}
+				}
+
+				if(input('status') === 'subtract') {
+					if(input('quantity') > $value['total_quantity_in_stock']) {
+						return [
+							'type' => 'error_cart_quantity',
+							'current_quantity' => $value['quantity'],
+							'fake_id' => $value['fake_id']
+						];
+					}
+				}
+				$this->itemId = $value['fake_id'];
+				$value['quantity'] = (int)input('quantity');
+				$cart->items[$key]['quantity'] = (int)input('quantity');
+				$cart->items[$key]['total'] = (int)input('quantity') * $value['price'];
 				$cart->save();
+			}
+
+			if($value['id'] === (int)input('id') && $value['download_price'] === 0) {
+				$this->totalQty = $this->totalQty + (int)$value['quantity'];
+				$this->totalQtyInStock = (int)$value['total_quantity_in_stock'];
+				$cart->items[$key]['total_quantity'] = (int)$this->totalQty;
+				$cart->save();
+			}
+		}
+
+		$cart->updateTotals();
+		$cart->save();
+
+		return [
+			'total' => $cart->total,
+			'current_quantity' => (int)input('quantity'),
+			'total_quantity' => $this->totalQty,
+			'total_quantity_in_stock' => $this->totalQtyInStock,
+			'fake_id' => $this->itemId
+
+		];
+    }
+
+	public function onChangeStatusItem() {
+		$this->prepareLang();
+    	$cart = Cart::load();
+		$status = input('status');
+		foreach ($cart->items as $key => $value) {
+			if($value['fake_id'] === input('fake_id')) {
+				if(!$status) {
+					$cart->items[$key]['status'] = 0;
+					$cart->items[$key]['total'] = 0;
+					$this->totalQty = $cart->items[$key]['total_quantity'] - 1;
+					$cart->save();
+				} else {
+					$this->totalQty = $cart->items[$key]['total_quantity'] + 1;
+					$cart->items[$key]['status'] = 1;
+					$cart->items[$key]['total'] = $value['download_price'] === 1 ? $value['price'] : $value['quantity'] * $value['price'];
+					$cart->save();
+				}
+			}
+		}
+
+		if(!empty($cart->items)) {
+			foreach ($cart->items as $key => $value) {
+				if($value['id'] === (int)input('id') && $value['download_price'] === 0) {
+					$cart->items[$key]['total_quantity'] = $this->totalQty;
+					$cart->save();
+				}
 			}
 		}
 		$cart->updateTotals();
 		$cart->save();
 
 		return [
+			'#cart_count' => count($cart->items),
+			'update_change_status' => 'success',
 			'total' => $cart->total
 		];
-    }
+	}
+
+	public function onDeleteItem() {
+		$cart = Cart::load();
+		foreach ($cart->items as $key => $value) {
+			if($value['id'] === (int)input('id')) {
+				$cart->items[$key]['total_quantity'] = $cart->items[$key]['total_quantity'] - 1;
+				$cart->save();
+			}
+			if($value['fake_id'] === input('fake_id')) {
+				unset($cart->items[$key]);
+			}
+		}
+		$cart->updateTotals();
+		$cart->save();
+		return [
+			'delete_item' => true,
+		];
+	}
     
     public function getCustomFieldsSettings(){
         $fields = [
@@ -139,7 +237,8 @@ class CartList extends ComponentBase
 
 	public function onRun(){
         $this->prepareLang();
-
+    	$cart = Cart::load();
+		$order = $cart->createOrderFromCart();
 		if(input('cart_id'))
 			Cart::load(input('cart_id'));
 
@@ -179,7 +278,7 @@ class CartList extends ComponentBase
 		}
 
 		$this->page['cart'] = $cart = Cart::load();
-
+		// dd($this->page['cart']); 
 		$this->page['user'] = $user = $this->user();
 
 		$this->page['product_page'] = $this->property('productPage');
@@ -223,6 +322,8 @@ class CartList extends ComponentBase
         $this->page['method_country_code'] = $billingCountry->code ?? null;
 
 		$this->addCss('/plugins/pixel/shop/assets/css/cart_list.css');
+		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
+		$this->addJs('/plugins/pixel/shop/assets/js/product.js');
 
 	}
 
@@ -243,8 +344,8 @@ class CartList extends ComponentBase
             $cart->save();
 
 			$return = [
-                '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]),
-                '.shippingStateContainer' => $this->renderPartial('@shipping_states', [
+                '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]),
+                '.shippingStateContainer' => $this->renderPartial('@shiping_state_option', [
                     'shipping_states' => $country->states
                 ]), 
                 'code' => $country->code
@@ -286,7 +387,7 @@ class CartList extends ComponentBase
 		$cart->updateTotals();
 		$cart->save();
 
-		return [ '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]) ];
+		return [ '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]) ];
     }
     
     public function onSameAddressChange(){
@@ -301,7 +402,7 @@ class CartList extends ComponentBase
         $methodCountry = input('is_ship_same_bill') ? 'shipping' : 'billing';
 
 		return [ 
-            '#shop__cart-partial' => $this->renderPartial('@cart', [ 'cart' => $cart ]),
+            '#shop__cart-partial' => $this->renderPartial('@list_cart_checkout', [ 'cart' => $cart ]),
             '.shop__methods-list' => $this->renderPartial('@methods', [
                 'methods_list' => $this->getPaymentMethodsList(input($methodCountry . '_address.country')),
                 'method_country_code' => input($methodCountry . '_address.country')

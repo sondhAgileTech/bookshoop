@@ -13,12 +13,23 @@
                               <div class="cart-item  css-0">
                                  <div class="cart-item-wrapper">
                                     <div class="cart-item-image">
-                                       <input class="btn-select-item" type="checkbox"></input>
+                                       <form data-request="onChangeStatusItem" data-request-flash data-request-success="CartButton.onSuccessonChangeStatus(data)" id="form-change-status-item">
+                                          <input onclick="this.parentNode.querySelector('button[type=submit]').click();" value="{{ item.status == 1 ? 'checked ' : 'uncheck' }}" name="status" class="btn-select-item" type="checkbox" {{ item.status == 1 ? 'checked ' : '' }}/>
+                                          <input type="hidden" name="id" value="{{ item.id }}" />
+                                          <input type="hidden" name="fake_id" value="{{ item.fake_id }}" />
+                                          <button type="submit" class="submit-form-change-status-item" style="display:none;"></button>
+                                       </form>
                                        <a href="">
                                           {% if item.thumb %}
                                              <img src="{{ item.thumb }}" class="xzoom-gallery xactive" alt="">
                                           {% endif %}
                                        </a>
+                                       <form data-request="onDeleteItem" data-request-flash data-request-success="CartButton.onSuccessonRemoveItem(data)" id="form-change-status-item">
+                                          <button type="submit" name="delete" style="display:none;"></button>
+                                          <input type="hidden" name="id" value="{{ item.id }}" />
+                                          <input type="hidden" name="fake_id" value="{{ item.fake_id }}" />
+                                          <a onclick="this.parentNode.querySelector('button[name=delete]').click();"  href="javascript:;" style="text-align: center;">Delete</a>
+                                       </form>
                                     </div>
                                     <div class="cart-item-details">
                                        <div class="cart-item-info">
@@ -27,20 +38,25 @@
                                              <a href="">
                                                 {{ item.title }}
                                              </a>
-                                             <div class="cart-item-qty" data-label="Qty">
-                                                <form data-request="onAddToCartItem" data-request-flash data-request-success="CartButton.onSuccessAddMoreItem(data)" id="form-add-to-cart-item">
-                                                   <input type="hidden" name="id" value="{{ item.id }}" />
-                                                   <div class="qty-selector-items">
-                                                      <button type="submit" class="qty-btn decrement-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" min="1">
-                                                         <span class="icon-style" aria-hidden="true">–</span>
-                                                      </button>
-                                                      <input name="quantity" class="quantity-input" type="number" id="qty" title="Quantity" placeholder="1" name="product-qty" value="{{ item.quantity }}">
-                                                      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" type="submit" class="qty-btn increment-btn">
-                                                         <span class="icon-style" aria-hidden="true">+</span>
-                                                      </button>
-                                                   </div>
-                                                </form>
-                                             </div>
+                                             <span>{{ item.download_price == 1 ? 'Download By Gigtal' : '' }}</span>
+                                             {% if item.download_price != 1 %}
+                                                <div class="cart-item-qty" data-label="Qty">
+                                                   <form data-request="onAddToCartItem" data-request-flash data-request-success="CartButton.onSuccessAddMoreItem(data)" id="form-add-to-cart-item">
+                                                      <input type="hidden" name="id" value="{{ item.id }}" />
+                                                      <input type="hidden" name="fake_id" value="{{ item.fake_id }}" />
+                                                      <input type="hidden" name="status" id="add-more-quantity" />
+                                                      <div class="qty-selector-items">
+                                                         <button type="submit" class="qty-btn decrement-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                            <span class="icon-style" aria-hidden="true">–</span>
+                                                         </button>
+                                                         <input name="quantity" class="quantity-input quantity-{{ item.fake_id }} quantity-cart-{{ item.fake_id }}" type="number" id="qty" title="Quantity" placeholder="1" name="product-qty" value="{{ item.quantity }}" min="1">
+                                                         <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();" type="submit" class="qty-btn increment-btn plus-{{ item.fake_id }}" {{ item.total_quantity < item.total_quantity_in_stock ? '' : 'disabled' }}>
+                                                            <span class="icon-style" aria-hidden="true">+</span>
+                                                         </button>
+                                                      </div>
+                                                   </form>
+                                                </div>
+                                             {% endif %}
                                           </div>
                                        </div>
                                     </div>

@@ -1,0 +1,77 @@
+<!-- <div id="Payment" class="tabcontent">
+    <div class="body_cart">
+        <form action="">
+            <div class="cart_flex">
+                <p>Ship TogioitranDoi 3, x. Viet Lap, San Diego, Bac Giang, 230000VN</p>
+                <a href="#">Change</a>
+            </div>
+
+
+            <h4>Credit Card</h4>
+
+            <div class="card_images">
+                <img src="asset/images/card.png" alt="">
+                <img src="asset/images/master-card.jpg" alt="">
+                <img src="asset/images/american-express.jpg" alt="">
+                <img src="asset/images/disc.png" alt="">
+            </div>
+            <input type="number" name="car_number" placeholder="Credit Card Number" class="input_item"><br>
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <select class="input_item">
+                        <option value="volvo">Select Month</option>
+                        <option value="saab">Saab</option>
+                        <option value="vw">VW</option>
+                    </select>
+                </div>
+                <div class="col-lg-4">
+                    <select class="input_item">
+                        <option value="volvo">Select Year</option>
+                        <option value="saab">Saab</option>
+                        <option value="vw">VW</option>
+                    </select>
+                </div>
+                <div class="col-lg-4">
+                    <input type="number" name="cvv" placeholder="CVV" class="input_item"><br>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+</div> -->
+
+<div class="text-danger" data-validate-for="gateway"></div>
+<ul class="list-group">
+	{% for method in methods_list %}
+	<li class="list-group-item">
+		<div class="list-radio">
+			<input 
+                class="input_item"
+				type="radio" 
+				value="{{ method.gateway }}" 
+				name="gateway"
+				data-msg-required="{{ 'pixel.shop::validation.gateway.required'|trans }}" 
+				{% if method.gateway == cart.gateway or methods_list|length == 1 %}
+				checked="checked" 
+				{% endif %}
+				id="method-{{ method.gateway }}" required>
+			<label for="method-{{ method.gateway }}">{{ method.title }}</label>
+		</div>
+		<div class="list-partial">
+			{{ method.partial|raw }}
+		</div>
+    </li>
+    {% else %}
+    <li class="list-group-item">
+        <input type="hidden" name="gateway" class="ignore-rule" data-msg-required="{{ 'pixel.shop::validation.gateway.required'|trans }}"  required>
+        <img src="{{ '/plugins/pixel/shop/assets/img/icon-no-card.svg'|app }}" alt="" width="32" height="32"
+            style="float: left; margin-right: 8px">
+        <p style="line-height: 32px; margin-bottom: 0px">
+            {{ 'pixel.shop::component.cart.no_gateway_support'|trans({country: method_country_code}) }}
+        </p>
+    </li>
+	{% endfor %}
+</ul>
