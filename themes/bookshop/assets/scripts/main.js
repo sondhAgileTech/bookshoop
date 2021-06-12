@@ -33,4 +33,17 @@ $(document).ready(function () {
             },
         }
     });
+
+    $(".filter-all-category").click(function(){
+        $("#filterall").submit();
+    });
+
+    $(".filter-category-best-seller").click(function(){
+        $("#filterbestseller").submit();
+    });
+    
+    $(".filter-category-onsale").click(function(){
+        $("#filter-onsale").submit();
+    });
+
 });

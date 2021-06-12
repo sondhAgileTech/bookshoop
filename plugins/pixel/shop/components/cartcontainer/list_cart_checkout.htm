@@ -45,7 +45,7 @@
                                                             <button type="submit" class="qty-btn decrement-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                                                <span class="icon-style" aria-hidden="true">–</span>
                                                             </button>
-                                                            <input name="quantity" class="quantity-input quantity-{{ item.fake_id }}" type="number" id="qty" title="Quantity" placeholder="1" name="product-qty" value="{{ item.quantity }}" min="1">
+                                                            <input name="quantity" class="quantity-input quantity-cart-payment quantity-{{ item.fake_id }}" type="number" id="qty" title="Quantity" placeholder="1" name="product-qty" value="{{ item.quantity }}" min="1">
                                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();" type="submit" class="qty-btn increment-btn plus-{{ item.fake_id }}" {{ item.total_quantity < item.total_quantity_in_stock ? '' : 'disabled' }}>
                                                                <span class="icon-style" aria-hidden="true">+</span>
                                                             </button>

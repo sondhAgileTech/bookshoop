@@ -1,13 +1,35 @@
 <section class="ss-shop-list">
     <div class="container-master">
         <h2 class="ss-list-title style-2">Merchandise</h2>
-        <ul class="ss-list-filter">
-            <li><a href="" title="">Filter - All</a></li>
-            <li><a href="" title="">Best Sellers</a></li>
-            <li><a href="" title="">On Sale</a></li>
-        </ul>
-        {% if showMerchandise %}
-                <div class="ss-list-body">
+            <ul class="ss-list-filter">
+                <li>
+                   <form id="filterall" data-request="onSendFilter" data-request-flash data-request-validate data-request-complete="onSuccess(data)">
+                        <input id="filter-all" type="hidden" name="fill-all-cate" value="fill-all-cate"/>
+                        <a href="javascript:1" title="" class="filter-all-category">Filter - All</a>
+                    </form>
+                </li>
+                <li>
+                    <form id="filterbestseller" data-request="onSendFilter" data-request-flash data-request-validate data-request-complete="onSuccess(data)">
+                        <input id="fill-cate-best-seller" type="hidden" name="fill-cate-best-seller" value="fill-cate-best-seller"/>
+                        <!-- <select name="category-name" class="filter-category-best-seller">
+                            {% if categoryList %}
+                                {% for category in categoryList %}
+                                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select> -->
+                        <a href="javascript:1" title="" class="filter-category-best-seller">Best Sellers</a>
+                    </form>
+                </li>
+                <li>
+                    <form id="filter-onsale" data-request="onSendFilter" data-request-flash data-request-validate data-request-complete="onSuccess(data)">
+                        <input id="fill-cate-onsale" type="hidden" name="fill-cate-onsale" value="fill-cate-onsale"/>
+                        <a href="javascript:1" href="" title=""  class="filter-category-onsale">On Sale</a>
+                    </form>
+                </li>
+            </ul>
+            <div class="ss-list-body" id="ss-list-body-merchandise">
+                {% if showMerchandise %}
                     {% for product in showMerchandise %}
                         <div class="ss-box-item">
                             <div class="ss-item">
@@ -25,9 +47,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                </div>
-        {% else %}
-                <h3>No data to show</h3>
-        {% endif %}
-</div>
+                {% endif %}
+            </div>
+    </div>
 </section>

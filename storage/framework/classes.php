@@ -81,4 +81,9 @@
   'Rainlab\\Blog\\Components\\BlogHomePage' => 'plugins\\rainlab\\blog\\components\\BlogHomePage.php',
   'RainLab\\User\\Models\\MailBlocker' => 'plugins\\rainlab\\user\\models\\MailBlocker.php',
   'Pixel\\Shop\\Components\\Blog' => 'plugins\\pixel\\shop\\components\\Blog.php',
+  'rainlab\\blog\\Controllers\\posts' => 'plugins\\rainlab\\blog\\controllers\\posts.php',
+  'RainLab\\Blog\\Models\\PostImport' => 'plugins\\rainlab\\blog\\models\\PostImport.php',
+  'RainLab\\Blog\\Models\\PostExport' => 'plugins\\rainlab\\blog\\models\\PostExport.php',
+  'Pixel\\Shop\\Components\\CartList' => 'plugins\\pixel\\shop\\components\\CartList.php',
+  'RainLab\\Blog\\FormWidgets\\BlogMarkdown' => 'plugins\\rainlab\\blog\\formwidgets\\BlogMarkdown.php',
 );

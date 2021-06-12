@@ -167,6 +167,10 @@ class BlogHomePage extends ComponentBase
 
         $this->category = $this->page['category'] = $this->loadCategory();
         $this->posts = $this->page['posts'] = $this->listPosts();
+        $singlePost = BlogPost::orderBy('updated_at', 'DESC')->first();
+        if($singlePost) {
+            $this->page['singlePost'] = $singlePost;
+        }
 
         /*
          * If the page number is not valid, redirect

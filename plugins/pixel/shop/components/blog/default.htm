@@ -3,33 +3,35 @@
         <div class="ss-list-body">
             <div class="col-12">
                 <div class="col-md-8 show-list-blog-item">
-            <div class="ss-blog-img">
-                <a href="" title="" class="imgc">
-                    <img src="{{'assets/blog/Rectangle 1390.png'|theme }}" alt="">
-                </a>
-                <h2 class="text-center">Popular</h2>
-            </div>
-        </div>
-        <div class="col-md-4 show-list-blog-item">
-            <div class="ss-blog-item">
-                <div class="item-img">
-                    <a href="" title="" class="imgc">
-                        <img src="{{'assets/blog/Rectangle 1369.png'|theme }}" alt="">
-                    <span>New</span>
-                    </a>
-                </div>
-                <div class="item-body">
-                    <h3 class="item-title"><a href="" title="Blog 02">Blog 02</a></h3>
-                    <div class="item-text">
-                        Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur
-                    </div>
-                    <div class="item-date">
-                        <img src="http://localhost:8009/bookshoop/themes/bookshop/assets/images/icons/date.png" alt="Blog 02"><span>2021-03-17 02:18:30</span>
+                    <div class="ss-blog-img">
+                        <a href="{{ 'blog-detail'|page({ slug:singlePost.slug }) }}" title="{{ singlePost.title }}" class="imgc">
+                            {% for image in singlePost.featured_images %}
+                                <img src="{{ image.path }}"  alt="{{ singlePost.title }}">
+                            {% endfor %}
+                        </a>
+                        <h2 class="text-center">Popular</h2>
                     </div>
                 </div>
+                <div class="col-md-4 show-list-blog-item">
+                    <div class="ss-blog-item">
+                        <div class="item-img">
+                            <a href="" title="" class="imgc">
+                                <img src="{{'assets/blog/Rectangle 1369.png'|theme }}" alt="">
+                            <span>New</span>
+                            </a>
+                        </div>
+                        <div class="item-body">
+                            <h3 class="item-title"><a href="" title="Blog 02">Blog 02</a></h3>
+                            <div class="item-text">
+                                Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur
+                            </div>
+                            <div class="item-date">
+                                <img src="{{ 'assets/images/icons/date.png'|theme }}" alt="Blog 02"><span>2021-03-17 02:18:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
         </div>
     </div>
 </section>
@@ -37,65 +39,31 @@
 <section class="ss-blog ss-list-item-bottom">
     <div class="container-master">
         <div class="ss-list-body">
-        <div class="col-12">
-            <div class="col-md-4 show-list-blog-item">
-            <div class="ss-blog-item">
-                    <div class="item-img">
-                        <a href="" title="" class="imgc">
-                            <img src="{{'assets/blog/Rectangle 1369 (1).png'|theme }}" alt="">
-                        <span>New</span>
-                        </a>
-                    </div>
-                    <div class="item-body">
-                        <h3 class="item-title"><a href="" title="Blog 02">Blog 02</a></h3>
-                        <div class="item-text">
-                            Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur
+            <div class="col-12">
+                {% for post in posts %}
+                    <div class="col-md-4 show-list-blog-item">
+                        <div class="ss-blog-item">
+                                <div class="item-img">
+                                    <a href="{{ 'blog-detail'|page({ slug:post.slug }) }}" title="{{ post.title }}" class="imgc">
+                                        {% for image in post.featured_images %}
+                                            <img src="{{ image.path }}"  alt="{{ post.title }}">
+                                        {% endfor %}
+                                    <span>New</span>
+                                    </a>
+                                </div>
+                                <div class="item-body">
+                                    <h3 class="item-title"><a href="{{ 'blog-detail'|page({ slug:post.slug }) }}" title="Blog 02">{{ post.title }}</a></h3>
+                                    <div class="item-text">
+                                        {{post.excerpt}}
+                                    </div>
+                                    <div class="item-date">
+                                        <img src="{{ 'assets/images/icons/date.png'|theme }}" alt="Blog 02"><span>{{post.created_at}}</span>
+                                    </div>
+                                </div>
                         </div>
-                        <div class="item-date">
-                            <img src="http://localhost:8009/bookshoop/themes/bookshop/assets/images/icons/date.png" alt="Blog 02"><span>2021-03-17 02:18:30</span>
-                        </div>
                     </div>
+                {% endfor %}
             </div>
-        </div>
-        <div class="col-md-4 show-list-blog-item">
-            <div class="ss-blog-item">
-                <div class="item-img">
-                    <a href="" title="" class="imgc">
-                        <img src="{{'assets/blog/Rectangle 1369 (2).png'|theme }}" alt="">
-                    <span>New</span>
-                    </a>
-                </div>
-                <div class="item-body">
-                    <h3 class="item-title"><a href="" title="Blog 02">Blog 02</a></h3>
-                    <div class="item-text">
-                        Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur
-                    </div>
-                    <div class="item-date">
-                        <img src="http://localhost:8009/bookshoop/themes/bookshop/assets/images/icons/date.png" alt="Blog 02"><span>2021-03-17 02:18:30</span>
-                    </div>
-                </div>
-        </div>
-    </div>
-    <div class="col-md-4 show-list-blog-item">
-        <div class="ss-blog-item">
-            <div class="item-img">
-                <a href="" title="" class="imgc">
-                    <img src="{{'assets/blog/Rectangle 1369 (3).png'|theme }}" alt="">
-                <span>New</span>
-                </a>
-            </div>
-            <div class="item-body">
-                <h3 class="item-title"><a href="" title="Blog 02">Blog 02</a></h3>
-                <div class="item-text">
-                    Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur
-                </div>
-                <div class="item-date">
-                    <img src="http://localhost:8009/bookshoop/themes/bookshop/assets/images/icons/date.png" alt="Blog 02"><span>2021-03-17 02:18:30</span>
-                </div>
-            </div>
-    </div>
-</div>
-</div>
         </div>
     </div>
 </section>

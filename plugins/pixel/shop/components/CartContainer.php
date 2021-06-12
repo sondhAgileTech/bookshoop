@@ -206,6 +206,9 @@ class CartContainer extends ComponentBase{
 		$this->addJs('/plugins/pixel/shop/assets/js/jquery.validate.min.js');
         $this->addJs('/plugins/pixel/shop/assets/js/jquery.steps.min.js');
 		$this->addJs('/plugins/pixel/shop/assets/js/cart.js');
+		$this->addCss('/plugins/pixel/shop/assets/css/alertify.min.css');
+		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
+		$this->addJs('/plugins/pixel/shop/assets/js/button.js');
 	}
 
 	public function user(){

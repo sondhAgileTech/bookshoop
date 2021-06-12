@@ -95,6 +95,10 @@ tabs:
             span: auto
             type: text
             tab: 'pixel.shop::lang.fields.details'
+            trigger:
+              action: disable
+              field: type
+              condition: value[service]
 
         brand:
             label: 'pixel.shop::lang.fields.brand'
@@ -112,7 +116,7 @@ tabs:
             trigger:
               action: disable
               field: type
-              condition: value[service]
+              condition: value[product]
 
         categories:
             label: 'pixel.shop::lang.fields.categories'
@@ -165,6 +169,14 @@ tabs:
               field: is_with_variants
               condition: checked
 
+        link_facebook:
+            label: 'Link facebook comment'
+            oc.commentPosition: ''
+            cssClass: oc-icon-facebook
+            span: auto
+            type: text
+            tab: 'pixel.shop::lang.fields.details'
+
         short_description:
             label: 'pixel.shop::lang.fields.short_description'
             oc.commentPosition: ''
@@ -194,6 +206,11 @@ tabs:
             label: 'pixel.shop::lang.fields.attachments'
             type: section
             tab: 'pixel.shop::lang.fields.details'
+            trigger:
+              action: hide
+              field: type
+              cssClass: dz-clickable
+              condition: value[service]
         attachments:
             label: 'pixel.shop::lang.fields.attachments'
             oc.commentPosition: ''
@@ -201,6 +218,11 @@ tabs:
             span: full
             type: fileupload
             tab: 'pixel.shop::lang.fields.details'
+            trigger:
+              action: hide
+              field: type
+              cssClass: dz-clickable
+              condition: value[service]
 
         variants:
             label: ''

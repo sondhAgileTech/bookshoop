@@ -68,6 +68,8 @@ class CartButton extends ComponentBase
 		$this->page['cart'] = $cart = Cart::load();
 		$this->page['cart_count'] = count($cart->items);
 
+		$this->addCss('/plugins/pixel/shop/assets/css/alertify.min.css');
+		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
 		$this->addCss('/plugins/pixel/shop/assets/css/button.css');
 		$this->addJs('/plugins/pixel/shop/assets/js/button.js');
 

@@ -3,20 +3,6 @@ url = "/"
 layout = "default"
 is_hidden = 0
 
-[shopProductsList]
-categoryFilter = "{{ :category }}"
-scope = "showItems"
-limitType = "paginate"
-take = 20
-orderBy = "name"
-sort = "asc"
-productPage = "product"
-categoryPage = "products"
-showCategoriesFilter = 1
-showSearchBar = 1
-showQuickAdd = 1
-typeCategoriesFilter = "dropdown"
-
 [blogHomePage]
 pageNumber = "{{ :page }}"
 postsPerPage = 3
@@ -34,8 +20,10 @@ orderBy = "name"
 sort = "asc"
 productPage = "product"
 categoryPage = "products"
+showCategoriesFilter = 1
+showSearchBar = 1
 showQuickAdd = 1
-typeCategoriesFilter = "dropdown"
+typeCategoriesFilter = "buttons"
 categoryForSlidePost = "book"
 categoryForMerchandise = "merchandise"
 ==

@@ -301,8 +301,12 @@ class Item extends Model{
 	}
 
 	public function getProductRelatedOptions(){
-		return self::all()->lists('name', 'id');
+		$emptyIten = [
+			'choose' => "Select product related"
+		];
+		$item = self::all()->lists('name', 'id');
+		$result = array_merge ($emptyIten, $item);
 
-		// return implode(',' , $product);
+		return $result;
 	}
 }

@@ -3,12 +3,11 @@
     <div class="container-master">
         <div class="ss-box-blog">
             <div class="ss-blog-text">
-                <h3 class="ss-list-title style-3"><a href="" title="">Our Blog</a></h3>
+                <h3 class="ss-list-title style-3"><a href="{{ 'blog'|page }}" title="">Our Blog</a></h3>
                 <div class="ss-txt">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br> <br>
-                    Itaque earum rerum hic tenetur a sapiente ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
+                    {{ singlePost.excerpt }}
                 </div>
-                <div class="btn-more pink"><a href="" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <div class="btn-more pink"><a href="{{ 'blog-detail'|page({ slug:singlePost.slug }) }}" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
             </div>
             <div class="ss-blog-slide">
                 <div class="swiper-blog">
@@ -17,15 +16,15 @@
                             <div class="swiper-slide">
                                 <div class="ss-item">
                                     <div class="item-img">
-                                        <a href="" title="" class="imgc">
+                                        <a href="{{ 'blog-detail'|page({ slug:post.slug }) }}" title="{{ post.title }}" class="imgc">
                                             {% for image in post.featured_images %}
                                                 <img src="{{ image.path }}"  alt="{{ post.title }}">
                                             {% endfor %}
-                                            <span>New</span>
+                                            <!-- <span>New</span> -->
                                         </a>
                                     </div>
                                     <div class="item-body">
-                                        <h3 class="item-title"><a href="" title="{{ post.title }}">{{ post.title }}</a></h3>
+                                        <h3 class="item-title"><a href="{{ 'blog-detail'|page({ slug:post.slug }) }}" title="{{ post.title }}">{{ post.title }}</a></h3>
                                         <div class="item-text">
                                             {{post.excerpt}}
                                         </div>

@@ -33,10 +33,17 @@ CartButton.onSuccessAddMoreItem = function(data) {
 		$(`.quantity-${data.fake_id}`).val(data.current_quantity);
 		return false;
 	}
+	if(data.type == 'error_cart_quantity_in_stock') {
+
+		// alertify.notify('Sorry, this product is now out of stock', 'warning', 10);
+		alertify.notify(`Sorry, you just buy only ${data.total_stock} items `, 'warning', 10);
+		$(`.quantity-${data.fake_id}`).val(data.current_quantity);
+		return false;
+	}
 	var total = parseFloat(data.total).toFixed(2);
 	$(".cart-subtotal-value").text(`$${total}`);
 	$(".btn-co").text(`$${total}`);
-	console.log(data.fake_id);
+
 	// console.log($("body").find(`.quantity-cart-${data.fake_id}`));
 	$("body").find(`.quantity-cart-${data.fake_id}`).val(data.current_quantity);
 	$("body").find(`.quantity-${data.fake_id}`).val(data.current_quantity);
@@ -113,5 +120,9 @@ jQuery(document).ready(function($) {
 	});
 	$('.decrement-btn').click(function() {
 		$('#add-more-quantity').val('subtract');
+	});
+	$('.quantity-input').keyup(function() {
+		$('#add-more-quantity').val('enter');
+		$("#form-add-to-cart-item").submit();
 	});
 });

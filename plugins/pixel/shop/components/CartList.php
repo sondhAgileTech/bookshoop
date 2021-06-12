@@ -57,7 +57,7 @@ class CartList extends ComponentBase
 		foreach ($cart->items as $key => $value) {
 			if($value['fake_id'] === input('fake_id')) {
 				if(input('status') === 'plus') {
-					if(input('quantity') > $value['total_quantity_in_stock']) {
+					if(input('quantity') > $value['total_quantity_in_stock'] || input('quantity') === "") {
 						return [
 							'type' => 'error_cart_quantity',
 							'current_quantity' => $value['quantity'],
@@ -74,7 +74,7 @@ class CartList extends ComponentBase
 				}
 
 				if(input('status') === 'subtract') {
-					if(input('quantity') > $value['total_quantity_in_stock']) {
+					if(input('quantity') > $value['total_quantity_in_stock'] || input('quantity') === "") {
 						return [
 							'type' => 'error_cart_quantity',
 							'current_quantity' => $value['quantity'],
@@ -82,6 +82,18 @@ class CartList extends ComponentBase
 						];
 					}
 				}
+
+				if(input('status') === 'enter') {
+					if(input('quantity') > $value['total_quantity_in_stock'] || input('quantity') === "") {
+						return [
+							'type' => 'error_cart_quantity_in_stock',
+							'current_quantity' => $value['quantity'],
+							'fake_id' => $value['fake_id'],
+							'total_stock' => $value['total_quantity_in_stock']
+						];
+					}
+				}
+
 				$this->itemId = $value['fake_id'];
 				$value['quantity'] = (int)input('quantity');
 				$cart->items[$key]['quantity'] = (int)input('quantity');
@@ -321,9 +333,11 @@ class CartList extends ComponentBase
         $this->page['methods_list'] = $billingCountry && property_exists($billingCountry, 'code') ? $this->getPaymentMethodsList($billingCountry->code) : null;
         $this->page['method_country_code'] = $billingCountry->code ?? null;
 
+		$this->addCss('/plugins/pixel/shop/assets/css/alertify.min.css');
 		$this->addCss('/plugins/pixel/shop/assets/css/cart_list.css');
 		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
 		$this->addJs('/plugins/pixel/shop/assets/js/product.js');
+		$this->addJs('/plugins/pixel/shop/assets/js/button.js');
 
 	}
 

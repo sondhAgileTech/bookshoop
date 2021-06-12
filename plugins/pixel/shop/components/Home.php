@@ -4,7 +4,7 @@ use Flash;
 use Lang;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-
+use Pixel\Shop\Models\Order;
 use Pixel\Shop\Models\Item;
 use Pixel\Shop\Models\Category;
 use Pixel\Shop\Models\Favorite;
@@ -128,12 +128,149 @@ class Home extends ComponentBase
         ];
     }
 
+	protected function onSendFilter(){
+		if(input('fill-all-cate')) {
+			$data = $this->getProductOfCate();
+			return [
+				'data' => json_encode($data)
+			];
+		}
+
+		if(input('fill-cate-best-seller')) {
+			$data = $this->getProductOfCateBestSeller();
+			return [
+				'data' => json_encode($data),
+			];
+		}
+
+		if(input('fill-cate-onsale')) {
+
+			$data = $this->onSale();
+			return [
+				'data' => json_encode($data),
+			];
+		}
+	}
+
+	// FILTER ONSALE
+	public function onSale() {
+		$products = null;
+		$page = $this->property('productPage');
+		if (!$categoryId = $this->property('categoryForMerchandise'))
+		return null;
+
+		if (!$category = Category::whereSlug($categoryId)->first())
+			return null;
+
+		$query = Item::OnSale();
+
+		if($category)
+			$query->categories($category);
+		
+		$query->orderBy('id', 'DESC');
+		$products = $query->get();
+
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		$data = [];
+		if(count($products) > 0) {
+			foreach ($products as $key => $value) {
+				$data[$key] = $value;
+				$data[$key]['url_img'] = $value->gallery->first()->path ? $value->gallery->first()->path : '';
+			}
+		}
+
+		return $data;
+		
+	}
+
+	// FILTERS BEST SELLER
+	public function getProductOfCateBestSeller(){
+
+		$cateType = Category::where('slug', $this->property('categoryForMerchandise'))->first();
+		if($cateType) {
+			if(!$param = $this->paramName('categoryFilter')) {
+				return;
+			}
+	
+			$itemOrder = Order::get();
+			$bestItemOrder = [];
+	
+			foreach ($itemOrder as $value) {
+				foreach ($value->items as $item) {
+					$bestItemOrder [] = $item;
+				}
+			}
+	
+			$categories = Category::where('parent_id','=', $cateType->id)->get();
+			$page = $this->property('productPage');
+			$list = array();
+			
+			$categories->each(function($item) use ($page, $param, &$list) {
+				$item->setUrl($page, $this->controller, $param);
+				if($item->items->count() > 0)
+	
+					$list[] = $item;
+			});
+	
+			$data = [];
+			if(!empty($list[0]->items)) {
+				foreach ($list[0]->items as $key => $value) {
+					foreach ($bestItemOrder as $k => $v) {
+						if($value['id'] === $bestItemOrder[$k]['id']) {
+							$data[$key] = $value;
+							$data[$key]['page_url'] =$value->setUrl($page, $this->controller);
+							$data[$key]['url_img'] = $value->gallery->first()->path ? $value->gallery->first()->path : '';
+						}
+					}
+					
+				}
+			}
+	
+			return $data;
+		}
+	}
+
+	// FILTERS
+	public function getProductOfCate(){
+		$products = null;
+		$page = $this->property('productPage');
+		if (!$categoryId = $this->property('categoryForMerchandise'))
+		return null;
+
+		if (!$category = Category::whereSlug($categoryId)->first())
+			return null;
+
+		$query = Item::select();
+
+		if($category)
+			$query->categories($category);
+		
+		$query->orderBy('id', 'DESC');
+		$products = $query->get();
+
+		$products->each(function($product) use ($page) {
+			$product->setUrl($page, $this->controller);
+		});
+
+		$data = [];
+		if(count($products) > 0) {
+			foreach ($products as $key => $value) {
+				$data[$key] = $value;
+				$data[$key]['url_img'] = $value->gallery->first()->path ? $value->gallery->first()->path : '';
+			}
+		}
+
+		return $data;
+	}
+
     public function onRun()
 	{
         $this->prepareLang();
-        
 		$this->addCss('/plugins/pixel/shop/assets/css/products.css');
-
+		$this->addJs('/plugins/pixel/shop/assets/js/filter.js');
 		$this->products = $this->page['products'] = $this->loadProducts();
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
 		$this->page['showSlide'] = $this->showSlideHomePage();
@@ -165,7 +302,7 @@ class Home extends ComponentBase
 	// Show slide at home page
 	protected function showSlideHomePage() {
 		$products = null;
-		$page = 'product';
+		$page = $this->property('productPage');
 		if (!$categoryId = $this->property('categoryForSlidePost'))
 		return null;
 
@@ -190,7 +327,7 @@ class Home extends ComponentBase
 
 	protected function showNewsProducts() {
 		$products = null;
-		$page = 'product';
+		$page = $this->property('productPage');
 		if (!$categoryId = $this->property('categoryForSlidePost'))
 		return null;
 
@@ -214,7 +351,7 @@ class Home extends ComponentBase
 
 	protected function showMerchandise() {
 		$products = null;
-		$page = 'product';
+		$page = $this->property('productPage');
 		if (!$categoryId = $this->property('categoryForMerchandise'))
 		return null;
 
@@ -226,7 +363,7 @@ class Home extends ComponentBase
 		if($category)
 			$query->categories($category);
 		
-		$query->orderBy('updated_at');
+		$query->orderBy('updated_at', 'DESC');
 		$products = $query->take(4)->get();
 
 		$products->each(function($product) use ($page) {
@@ -238,7 +375,7 @@ class Home extends ComponentBase
 
 	protected function showSingleProduct() {
 		$products = null;
-		$page = 'product';
+		$page = $this->property('productPage');
 		if (!$categoryId = $this->property('categoryForSlidePost'))
 		return null;
 
@@ -250,7 +387,7 @@ class Home extends ComponentBase
 		if($category)
 			$query->categories($category);
 		
-		$query->orderBy('updated_at');
+		$query->orderBy('updated_at','DESC');
 		$products = $query->take(1)->get();
 
 		$products->each(function($product) use ($page) {
@@ -333,26 +470,35 @@ class Home extends ComponentBase
 
 	// METHODS
 	public function getCategoryList(){
+		$cateType = Category::where('slug', $this->property('categoryForMerchandise'))->first();
 		if(!$param = $this->paramName('categoryFilter'))
 			return;
 
-		$categories = Category::all();
-		$page = $this->property('categoryPage');
+		if($cateType) {
+			$categories = Category::where('parent_id', $cateType->id)->get();
+			$page = $this->property('categoryPage');
+			$list = array();
+			$empty = new Category();
+			$empty->name = 'Best Sellers';
+			$empty->setUrl($page, $this->controller, $param);
+	
+			$list[] = $empty;
+			
+			$categories->each(function($item) use ($page, $param, &$list) {
+				$item->setUrl($page, $this->controller, $param);
+	
+				if($item->items->count() > 0)
+					$list[] = $item;
+			});
+	
+			return $list;
+		}
+
 		$list = array();
-		
 		$empty = new Category();
-		$empty->name = trans('pixel.shop::lang.components.pl_all_cats');
-		$empty->setUrl($page, $this->controller, $param);
+		$empty->name = 'Best Sellers';
 
 		$list[] = $empty;
-		
-		$categories->each(function($item) use ($page, $param, &$list) {
-			$item->setUrl($page, $this->controller, $param);
-
-			if($item->items->count() > 0)
-				$list[] = $item;
-		});
-
 		return $list;
 	}
 

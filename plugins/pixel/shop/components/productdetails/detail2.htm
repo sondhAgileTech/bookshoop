@@ -22,14 +22,16 @@
 		{% if product.categories|length > 0 %}
 		{% endif %}
 
-		<div class="publish-date">
-			<span class="published-date">
-				Published Date: {{ product.created_at|date('Y/m/d') }}
-			</span>
-			<span class="author-product">
-				Author: {{product.author}}
-			</span>
-		</div>
+        {% if product.type == 'product' %}
+            <div class="publish-date">
+                <span class="published-date">
+                    Published Date: {{ product.created_at|date('Y/m/d') }}
+                </span>
+                <span class="author-product">
+                    Author: {{product.author}}
+                </span>
+            </div>
+        {% endif %}
 
 		<div class="show-description">
             {{ product.description|raw }}
@@ -113,7 +115,9 @@
 
 </div>
 <div class="facabook-comment">
-    <h3>FeedBack</h3>
+    {% if product.link_facebook %}
+        <h3>FeedBack</h3>
+    {% endif %}
     </br>
     {% if not (__SELF__.options['page_url'] is empty) %}
     {% set page_url = __SELF__.options['page_url'] %}
@@ -126,7 +130,7 @@
     {% endif %}
 
     {% if not (page_url is empty) %}
-    <div class="fb-comments {{custom_css}}" data-href="{{page_url}}" {% if not (__SELF__.options['width'] is empty) %}data-width="{{__SELF__.options['width']}}"{% endif %} data-numposts="{{__SELF__.options['posts_number']}}" data-colorscheme="{{__SELF__.options['color']}}"></div>
+    <div class="fb-comments {{custom_css}}" data-href="{{product.link_facebook}}" {% if not (__SELF__.options['width'] is empty) %}data-width="{{__SELF__.options['width']}}"{% endif %} data-numposts="{{__SELF__.options['posts_number']}}" data-colorscheme="{{__SELF__.options['color']}}"></div>
     {% else %}
     <div style="text-align: center;">
         <span style="color:red;font-weight: bold;"> 
