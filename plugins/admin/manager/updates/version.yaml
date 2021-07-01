@@ -1,0 +1,14 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table admin_manager_banner'
+    - builder_table_create_admin_manager_banner.php
+1.0.3:
+    - 'Updated table admin_manager_banner'
+    - builder_table_update_admin_manager_banner.php
+1.0.4:
+    - 'Created table admin_manager_game'
+    - builder_table_create_admin_manager_game.php
+1.0.5:
+    - 'Updated table admin_manager_game'
+    - builder_table_update_admin_manager_game.php

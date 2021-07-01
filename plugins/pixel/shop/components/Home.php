@@ -10,6 +10,7 @@ use Pixel\Shop\Models\Category;
 use Pixel\Shop\Models\Favorite;
 use Pixel\Shop\Models\SalesSettings;
 use Pixel\Shop\Components\CartTrait;
+use Admin\Manager\Models\Banner;
 
 class Home extends ComponentBase
 {
@@ -301,27 +302,8 @@ class Home extends ComponentBase
 
 	// Show slide at home page
 	protected function showSlideHomePage() {
-		$products = null;
-		$page = $this->property('productPage');
-		if (!$categoryId = $this->property('categoryForSlidePost'))
-		return null;
-
-		if (!$category = Category::whereSlug($categoryId)->first())
-			return null;
-
-		$query = Item::select();
-
-		if($category)
-			$query->categories($category);
-		
-		$query->orderBy('updated_at');
-		$products = $query->take(2)->get();
-
-		$products->each(function($product) use ($page) {
-			$product->setUrl($page, $this->controller);
-		});
-
-		return $products->toArray();
+		$banner = Banner::where('page', $this->page->title)->first();
+		return $banner;
 	}
 
 

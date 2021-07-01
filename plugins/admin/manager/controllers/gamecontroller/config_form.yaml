@@ -1,0 +1,10 @@
+name: GameController
+form: $/admin/manager/models/game/fields.yaml
+modelClass: Admin\Manager\Models\Game
+defaultRedirect: admin/manager/gamecontroller
+create:
+    redirect: 'admin/manager/gamecontroller/update/:id'
+    redirectClose: admin/manager/gamecontroller
+update:
+    redirect: admin/manager/gamecontroller
+    redirectClose: admin/manager/gamecontroller

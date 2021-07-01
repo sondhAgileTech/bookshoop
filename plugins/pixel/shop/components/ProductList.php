@@ -10,6 +10,7 @@ use Pixel\Shop\Models\Category;
 use Pixel\Shop\Models\Favorite;
 use Pixel\Shop\Models\SalesSettings;
 use Pixel\Shop\Components\CartTrait;
+use Admin\Manager\Models\Banner;
 
 class ProductList extends ComponentBase
 {
@@ -140,7 +141,7 @@ class ProductList extends ComponentBase
 		$this->productsOfCate = $this->page['productsOfCate'] = $this->getProductOfCate();
 		$this->page['hotProductInCate'] = $this->getHotProducts();
 		$this->nameCategory = $this->property('categoryFilter');
-		$this->page['showSlideCategory'] = $this->showSlideCategory();
+		$this->page['showSlide'] = $this->showSlideCategory();
 		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
 
         $this->page['showCategoriesFilter'] = $this->property('showCategoriesFilter');
@@ -348,27 +349,7 @@ class ProductList extends ComponentBase
 
 	// Show slide at home page
 	protected function showSlideCategory() {
-		$page = $this->property('productPage');
-		$category = $this->page['activeCategory'] = $this->loadCategory();
-		$take = 2;
-	    $products = null;
-
-		$this->page['categoryList'] = $this->getCategoryList();
-
-		$query = Item::select();
-
-		if($category)
-			$query->categories($category);
-
-		if($this->property('limitType') == 'take')
-			$products = $query->take($take)->get();
-		else
-			$products = $query->paginate($take);
-		
-		$products->each(function($product) use ($page) {
-			$product->setUrl($page, $this->controller);
-		});
-
-		return $products;
+		$banner = Banner::where('page', $this->page->title)->first();
+		return $banner;
 	}
 }

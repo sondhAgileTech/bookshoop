@@ -78,10 +78,12 @@ $color: #333333;
                 line-height: 2.13rem;
                 position: relative;
                 &::before{
+                    z-index: 99999;
                     content: '';
-                    position: absolute;
-                    right: -4rem;
-                    bottom: -18rem;
+                    position: fixed;
+                    cursor: pointer;
+                    right: 0rem;
+                    bottom: 0rem;
                     width: 18.8rem;
                     height: 18.5rem;
                     background-image: url(../images/fox.png);

@@ -1,0 +1,20 @@
+plugin:
+    name: 'admin.manager::lang.plugin.name'
+    description: 'admin.manager::lang.plugin.description'
+    author: admin
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Manager
+        url: admin/manager/bannercontroller
+        icon: icon-life-ring
+        sideMenu:
+            'Banner manager':
+                label: 'Banner manager'
+                url: admin/manager/bannercontroller
+                icon: icon-sitemap
+            'Game manager':
+                label: 'Game manager'
+                url: admin/manager/gamecontroller
+                icon: icon-sitemap

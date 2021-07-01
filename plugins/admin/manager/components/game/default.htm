@@ -1,0 +1,35 @@
+
+{% if showSlide %}
+{% if showSlide.bannerimgs.count %}
+<section class="ss-banner">
+    <div class="swiper-banner">
+        {% partial '@slide' banners=showSlide %}
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
+{% endif %}
+{% endif %}
+<div class="wrapper">
+    <div class="row">
+        <div class="container">
+            <div class="maze_component">
+                {% if game %}
+                    <div class="maze_title">
+                        <h2 class="ss-list-title style-1">{{ game.name }}</h2>
+                    </div>
+                    {% if game.gameimage.count %}
+                        <img src="{{ game.gameimage.path }}" class="center" alt="" width="100%"/>
+                    {% endif %}
+                    <div class="btn-more pink">
+                        <form data-request="onDowndLoadGame" data-request-flash data-request-success="downloadGame(data)" id="download-game">
+                            <input type="hidden" name="id" value="{{ game.id }}"/>
+                            <a onclick="this.parentNode.querySelector('button[type=submit]').click();" href="javascript:1;">Download</a>
+                            <button type="submit" class="submit-form-change-status-item" style="display:none;"></button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

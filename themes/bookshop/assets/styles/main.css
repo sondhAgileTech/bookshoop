@@ -2622,26 +2622,6 @@ body.no-scroll:after {
   visibility: visible;
 }
 
-.filter-all-category{
-  width: 100%;
-  padding: 5px;
-  background: #ea624c;
-  color: #fff;
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid #ea624c !important;
-  text-align: center;
-}
-
-.filter-category-best-seller{
-  width: 100%;
-  padding: 5px;
-  background: #F5B120;
-  color: #fff;
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid #F5B120 !important;
-  text-align: center;
-}
-
 @media (max-width: 991px) {
   .btn-more a {
     font-size: 13px;

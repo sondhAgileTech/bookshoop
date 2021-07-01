@@ -1,0 +1,10 @@
+name: BannerController
+form: $/admin/manager/models/banner/fields.yaml
+modelClass: Admin\Manager\Models\Banner
+defaultRedirect: admin/manager/bannercontroller
+create:
+    redirect: 'admin/manager/bannercontroller/update/:id'
+    redirectClose: admin/manager/bannercontroller
+update:
+    redirect: admin/manager/bannercontroller
+    redirectClose: admin/manager/bannercontroller

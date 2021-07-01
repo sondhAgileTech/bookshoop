@@ -1,0 +1,16 @@
+columns:
+    name:
+        label: Name
+        type: text
+        searchable: true
+        sortable: true
+    page:
+        label: Page
+        type: text
+        searchable: true
+        sortable: true
+    link:
+        label: 'Link banner'
+        type: text
+        searchable: true
+        sortable: true

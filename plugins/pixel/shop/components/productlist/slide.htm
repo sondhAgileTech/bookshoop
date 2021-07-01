@@ -1,32 +1,23 @@
-{% if showSlideCategory %}
-{% set background = ["assets/images/slide-1.png", "assets/images/slide-2.png"] %}
 <div class="swiper-wrapper">
-    {% for key,post in showSlideCategory %}
-    <div class="swiper-slide">
-        <img src="{{ background[key]|theme }}" alt="">
-        <div class="container-master">
-            <div class="banner-text">
-                <h1 class="banner-text-title">{{ post.name }}</h1>
-                <div class="banner-text-description">
-                    {{ post.short_description }}
+    {% set background = ["assets/images/slide-1.png", "assets/images/slide-2.png"] %}
+    {% if banners.bannerimgs.count %}
+    {% for  banner in banners.bannerimgs %}
+        <div class="swiper-slide">
+            <a href="{{ banners.link }}">
+                <img src="{{ banner.path }}">
+            </a>
+            <!-- <div class="container-master">
+                <div class="banner-text">
+                    <h1 class="banner-text-title">{{ post.name }}</h1>
+                    <div class="banner-text-description">
+                        {{ post.short_description }}
+                    </div>
+                    <div class="btn-more pink">
+                        <a href="{{ post.url }}" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-                <div class="btn-more pink">
-                    <a href="{{ post.url }}" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
+            </div> -->
         </div>
-    </div>
-    {% endfor %}
+    {% endfor %}       
+    {% endif %}
 </div>
-{% else %}
-<div class="swiper-wrapper">
-    <div class="swiper-slide">
-        <img src="https://images.pexels.com/photos/819372/pexels-photo-819372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-        <div class="container-master">
-            <div class="banner-text">
-                <h1 class="banner-text-title">No data to show</h1>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}

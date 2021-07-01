@@ -41,14 +41,17 @@
 </section>
 {% endif %}
 
-
-<section class="ss-banner">
-    <div class="swiper-banner">
-        {% partial '@slide' %}
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-</section>
+{% if showSlide %}
+    {% if showSlide.bannerimgs.count %}
+        <section class="ss-banner">
+            <div class="swiper-banner">
+                {% partial '@slide' banners=showSlide%}
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+    {% endif %}
+{% endif %}
 
 {% set nameCategory = __SELF__.nameCategory %}
 <section class="ss-shop-list" id="ss-shop-category">

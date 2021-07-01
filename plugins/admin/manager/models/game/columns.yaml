@@ -1,0 +1,9 @@
+columns:
+    name:
+        label: 'Name of game'
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: Description
+        type: text

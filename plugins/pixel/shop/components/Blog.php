@@ -10,6 +10,7 @@ use October\Rain\Database\Collection;
 use RainLab\Blog\Models\Post as BlogPost;
 use RainLab\Blog\Models\Category as BlogCategory;
 use RainLab\Blog\Models\Settings as BlogSettings;
+use Admin\Manager\Models\Banner;
 
 class Blog extends ComponentBase
 {
@@ -167,6 +168,7 @@ class Blog extends ComponentBase
 		$this->addCss('/plugins/pixel/shop/assets/css/blog.css');
 
         $this->category = $this->page['category'] = $this->loadCategory();
+        $this->page['showSlide'] = $this->showSlideCategory();
         $this->posts = $this->page['posts'] = $this->listPosts();
         $singlePost = BlogPost::orderBy('updated_at', 'DESC')->first();
         if($singlePost) {
@@ -259,5 +261,11 @@ class Blog extends ComponentBase
 
         return $backendUser && $backendUser->hasAccess('rainlab.blog.access_posts') && BlogSettings::get('show_all_posts', true);
     }
+
+    	// Show slide at home page
+	protected function showSlideCategory() {
+		$banner = Banner::where('page', $this->page->title)->first();
+		return $banner;
+	}
 
 }

@@ -1,3 +1,15 @@
+{% if showSlide %}
+    {% if showSlide.bannerimgs.count %}
+    <section class="ss-banner">
+        <div class="swiper-banner">
+            {% partial '@slide' banners=showSlide %}
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+    {% endif %}
+{% endif %}
+
 <section class="ss-blog ss-list-item-top">
     <div class="container-master">
         <div class="ss-list-body">
