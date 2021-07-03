@@ -25,6 +25,8 @@ class Plugin extends PluginBase
     {
         return [
             'RainLab\Blog\Components\Post'       => 'blogPost',
+            'RainLab\Blog\Components\BlogCategoryPage'      => 'blogPostsCate',
+            'RainLab\Blog\Components\BlogCategoryDetail'      => 'blogPostsCateDetail',
             'RainLab\Blog\Components\Posts'      => 'blogPosts',
             'RainLab\Blog\Components\Categories' => 'blogCategories',
             'RainLab\Blog\Components\RssFeed'    => 'blogRssFeed',

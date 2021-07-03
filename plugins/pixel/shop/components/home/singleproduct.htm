@@ -19,7 +19,7 @@
                     {{showSingleProduct.short_description}}
                 </div>
                 <div class="btn-more blu">
-                    <a href="{{showSingleProduct.url}}" title="{{showSingleProduct.name}}">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    <a href="{{'product' |page({ slug: showSingleProduct.slug}) }}" title="{{showSingleProduct.name}}">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>

@@ -2356,6 +2356,7 @@ body.no-scroll:after {
 
 .ss-footer .box-footer .f-logo img {
   max-width: 234px;
+  min-height: 100px;
 }
 
 .ss-footer .box-footer .f-title {

@@ -368,3 +368,36 @@ input[data-type="discover"]{
     font-size: 18px;
     font-weight: bold;
 }
+#shop__cart-empty {
+    color: #000000;
+    text-align: center;
+    margin: auto;
+}
+
+#shop__cart-empty img {
+    height: 130px;
+    width: 70%;
+    margin-left: 35px;
+}
+
+#shop__cart-empty p {
+    color: rgba(0,0,0,0.4);
+    font-size: 17px;
+    line-height: 1rem;
+    margin-top: 15.125rem;
+}
+
+#shop__cart-empty button{
+    margin-top: 10px;
+    padding: 14px;
+    color: #ffffff;
+    background: #ee4d2d;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0;
+}

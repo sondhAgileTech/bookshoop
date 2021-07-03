@@ -369,14 +369,10 @@ class Home extends ComponentBase
 		if($category)
 			$query->categories($category);
 		
-		$query->orderBy('updated_at','DESC');
-		$products = $query->take(1)->get();
+		$query->orderBy('created_at','DESC');
+		$products = $query->first();
 
-		$products->each(function($product) use ($page) {
-			$product->setUrl($page, $this->controller);
-		});
-
-		return $products[0];
+		return $products;
 	}
 
     // LOAD MODELS

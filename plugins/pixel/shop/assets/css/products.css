@@ -208,7 +208,6 @@
 
 .btn-footer:last-child {
     border: none;
-    border-top: 1px solid #eee;
     border-radius: 0 0 .25rem .25rem;
     padding: 12px 6px;
 }

@@ -73,9 +73,6 @@ class ProductDetails extends AbstractFacebookComponent{
         
     	$slug = $this->property('slug');
     	$product = Item::where('slug', $slug)->where("is_visible", 1)->first();
-		// if($product->type != "product") {
-		// 	$this->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-		// }
 
 		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
     	$this->addCss('/plugins/pixel/shop/assets/css/product.css');
@@ -83,7 +80,7 @@ class ProductDetails extends AbstractFacebookComponent{
 		$this->addJs('/plugins/pixel/shop/assets/js/product.js');
 
 		if ($product == null)
-            return redirect($this->property('productsPage'));
+            return redirect('');
         else
         	$product->increment('views_count');
 
@@ -116,7 +113,7 @@ class ProductDetails extends AbstractFacebookComponent{
         \App::setLocale($lang);
     }
 
-    public function getRelatedProducts($product){	
+    public function getRelatedProducts($product){
 		$list = $product->categories->lists('id');
 
 		$products = Item::whereHas('categories', function($query) use ($list){
@@ -136,7 +133,6 @@ class ProductDetails extends AbstractFacebookComponent{
 	}
 
 	public function getRelatedProductsOfMerchandise($product){	
-
 		$products = Item::where('product_related','=', $product->id)
 			->where('is_visible', 1)
 			->orderBy('views_count', 'desc')

@@ -58,7 +58,7 @@ return [
         'card_accept' => 'We accept these credit cards.',
 
         'filter_by_category' => 'Filter by Category',
-        'no_results' => 'There are no results to show.',
+        'no_results' => '',
         'return' => 'Return',
 
         'customer_information' => 'Customer Information',

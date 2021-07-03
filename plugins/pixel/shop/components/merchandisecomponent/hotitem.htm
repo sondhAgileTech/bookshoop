@@ -1,0 +1,16 @@
+<div class="ss-box-item" style="width: calc(100%/3);">
+    <div class="ss-item">
+        <div class="item-img">
+            <a href="{{ product.url }}" class="imgc" title=""><img src="{{ product.image.getThumb(450, 'auto') }}" alt=""></a>
+        </div>
+        <div class="item-body">
+            <h3 class="item-title"><a href="{{ product.url }}" title="{{product.name}}">{{product.name}}</a></h3>
+            <div class="item-text">{{product.short_description}}</div>
+            <div class="btn-more-2 pink">
+                <a href="{{ product.url }}" title="{{product.name}}">
+                    Add to cart
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

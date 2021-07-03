@@ -1,49 +1,61 @@
 <div class="shop__cart-checkout">
-	<div class="row" id="checkout-container">
-		{% if order %}
-			{% partial '@order_summary' %}
-		{% else %}
+    {% if cart.items != null %}
+        <div class="row" id="checkout-container">
+            {% if order %}
+                {% partial '@order_summary' %}
+            {% else %}
 
-		<div class="col-md-8" id="shop__cart-steps">
-			<form novalidate="" data-request="onSendCheckout" data-request-flash data-request-validate data-request-complete="Cart.focusToInvalidFields(data)">
-                <div class="shop__steps">
-                    <h3>{{ 'pixel.shop::component.cart.customer_information'|trans }}</h3>
-                    <div class="step-content">
-                        {% partial '@shiping_cart_step_1' %}
-                    </div>
+            <div class="col-md-8" id="shop__cart-steps">
+                <form novalidate="" data-request="onSendCheckout" data-request-flash data-request-validate data-request-complete="Cart.focusToInvalidFields(data)">
+                    <div class="shop__steps">
+                        <h3>{{ 'pixel.shop::component.cart.customer_information'|trans }}</h3>
+                        <div class="step-content">
+                            {% partial '@shiping_cart_step_1' %}
+                        </div>
 
-                    <h3>{{ 'pixel.shop::component.cart.complete_order'|trans }}</h3>
-                    <div class="step-content">
-                        <div class="shop__methods-list">
-                            {% partial '@payment_cart_step_2' %}
+                        <h3>{{ 'pixel.shop::component.cart.complete_order'|trans }}</h3>
+                        <div class="step-content">
+                            <div class="shop__methods-list">
+                                {% partial '@payment_cart_step_2' %}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row" id="form-bag">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <a style="margin-top: 16px;" href="{{ 'home'|page }}" class="btn btn-link btn-back-shopping"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {{ 'pixel.shop::component.cart.continue_shopping'|trans }}</a>
-                            <a href="javascript:;" class="btn btn-link btn-prev" style="display: none;margin-top: 16px;">Return to adress</a>
-                        </div>
-                       
-                        <div class="col-md-8">
-                            <a href="javascript:;" class="btn bg-button btn-primary btn-next btn-continute-pay">Continute</a>
-                            <button class="btn btn-success bg-button btn-finish" type="submit" data-attach-loading style="display: none">
-                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Pay
-                            </button>
+                    <div class="row" id="form-bag">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <a style="margin-top: 16px;" href="{{ 'home'|page }}" class="btn btn-link btn-back-shopping"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {{ 'pixel.shop::component.cart.continue_shopping'|trans }}</a>
+                                <a href="javascript:;" class="btn btn-link btn-prev" style="display: none;margin-top: 16px;">Return to adress</a>
+                            </div>
+                        
+                            <div class="col-md-8">
+                                <a href="javascript:;" class="btn bg-button btn-primary btn-next btn-continute-pay">Continute</a>
+                                <button class="btn btn-success bg-button btn-finish" type="submit" data-attach-loading style="display: none">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Pay
+                                </button>
+                            </div>
                         </div>
                     </div>
-				</div>
-			</form>
-		</div>
+                </form>
+            </div>
 
-        <div class="col-md-4" id="shop__cart-partial">
-			{% partial '@list_cart_checkout' %}
-		</div>
-		
-		{% endif %}
-	</div>
+            <div class="col-md-4" id="shop__cart-partial">
+                {% partial '@list_cart_checkout' %}
+            </div>
+            
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="row" id="checkout-container">
+            <div class="col-md-3" id="shop__cart-empty">
+                    <img src="{{ 'assets/images/cart/empty_cart.png'|theme }}" />
+                    <p>Your cart is empty</p>
+                    <a href="{{ 'home' | page}}">
+                        <button>Continute Shopping</button>
+                    </a>
+            </div>
+        </div>
+    {% endif %}
 </div>	
 {% put scripts %}
 <script>

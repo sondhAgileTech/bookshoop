@@ -171,6 +171,11 @@ class CartList extends ComponentBase
 				unset($cart->items[$key]);
 			}
 		}
+		if(empty($cart->items)) {
+			$cart->subtotal = 0.0;
+			$cart->total = 0.0;
+			$cart->coupon = null;
+		}
 		$cart->updateTotals();
 		$cart->save();
 		return [
@@ -290,7 +295,7 @@ class CartList extends ComponentBase
 		}
 
 		$this->page['cart'] = $cart = Cart::load();
-		// dd($this->page['cart']); 
+		// dd($this->page['cart']);
 		$this->page['user'] = $user = $this->user();
 
 		$this->page['product_page'] = $this->property('productPage');

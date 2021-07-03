@@ -2,10 +2,10 @@
 {% if showSlide %}
 {% if showSlide.bannerimgs.count %}
 <section class="ss-banner">
-    <div class="swiper-banner">
+    <div class="swiper-banner" style="height: calc(100vh - 200px);">
         {% partial '@slide' banners=showSlide %}
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        <!-- <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> -->
     </div>
 </section>
 {% endif %}

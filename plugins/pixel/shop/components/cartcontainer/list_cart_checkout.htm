@@ -84,8 +84,25 @@
                     <div class="summary-wrapper ">
                         <div class="summary-block">
                             <div class="cart-subtotal">
-                            <div class="row">
-                                <div class="col-left">Sub Total</div>
+                            {% if cart.coupon %}
+                            <li class="list-group-item">
+                                <div class="text-success">
+                                    <h5 class="shop__cart-item-title">{{ 'pixel.shop::component.cart.promo_code'|trans }}</h5>
+                                    <small>{{ cart.coupon.code }}</small>
+                                </div>
+                                <a href="#" 
+                                    class="text-danger shop__cart-delete-item" 
+                                    data-request="onClearCoupon" 
+                                    data-request-flash>
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                <span class="text-success">
+                                    -{{ cart.coupon.discount }}
+                                </span>
+                            </li>
+                            {% endif %}
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-left">Total</div>
                                 <div class="col-right cart-subtotal-value">{{ cart.total|currency }}</div>
                             </div>
                             </div>

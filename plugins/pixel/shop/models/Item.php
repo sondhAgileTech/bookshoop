@@ -301,12 +301,13 @@ class Item extends Model{
 	}
 
 	public function getProductRelatedOptions(){
-		$emptyIten = [
-			'choose' => "Select product related"
-		];
-		$item = self::all()->lists('name', 'id');
-		$result = array_merge ($emptyIten, $item);
+		$item = self::all();
+		$data = [];
+		foreach ($item as $key => $value) {
+			$data['choose'] = "Select product related";
+			$data[$value->id] = $value->name;
+		}
 
-		return $result;
+		return $data;
 	}
 }

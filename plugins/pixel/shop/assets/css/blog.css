@@ -87,7 +87,18 @@
     color: #333;
     margin-left: 10px;
 }
+.show-list-blog-item-content {
+    transform: translate(24%, 50%);
+}
 
+.ss-blog-detail {
+    padding: 0px !important;
+}
+
+.post-related-title {
+    text-align: center;
+    padding: 30px;
+}
 
 @media only screen and (max-width: 992px) {
     .ss-list-body .ss-blog-img h2{

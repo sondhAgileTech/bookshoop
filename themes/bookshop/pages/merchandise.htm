@@ -3,7 +3,7 @@ url = "/merchandise/:category?"
 layout = "default"
 is_hidden = 0
 
-[shopProductsList]
+[MerchandiseComponent]
 categoryFilter = "{{ :category }}"
 scope = "showItems"
 limitType = "paginate"
@@ -16,4 +16,4 @@ showQuickAdd = 1
 typeCategoriesFilter = "dropdown"
 exceptCategory = "book"
 ==
-{% component 'shopProductsList' %}
+{% component 'MerchandiseComponent' %}

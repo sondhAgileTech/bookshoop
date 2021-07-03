@@ -1,0 +1,23 @@
+<div class="swiper-wrapper">
+    {% set background = ["assets/images/slide-1.png", "assets/images/slide-2.png"] %}
+    {% if banners.bannerimgs.count %}
+    {% for  banner in banners.bannerimgs %}
+        <div class="swiper-slide">
+            <a href="{{ banners.link }}">
+                <img src="{{ banner.path }}">
+            </a>
+            <!-- <div class="container-master">
+                <div class="banner-text">
+                    <h1 class="banner-text-title">{{ post.name }}</h1>
+                    <div class="banner-text-description">
+                        {{ post.short_description }}
+                    </div>
+                    <div class="btn-more pink">
+                        <a href="{{ post.url }}" title="">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    {% endfor %}       
+    {% endif %}
+</div>

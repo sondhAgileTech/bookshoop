@@ -3,21 +3,25 @@
     <div class="row">
         <div class="container">
             <div class="maze_component">
-                <img src="{{  'assets/images/gifts/gift.png'|theme}}" class="center" alt="" width="100%"/>
-                <div class="text-gift">
-                    Get an exclusive 15% discount on orders
-                    over $ 90 with this book discount code.
-                </div>
-                <div class="code-discount">
-                    <form action="">
+                {% if coupon %} 
+                    <img src="{{  'assets/images/gifts/gift.png'|theme}}" class="center" alt="" width="100%"/>
+                    <div class="text-gift">
+                        Congratulations, you have {{ coupon.value}} {{ coupon.type_value != 1 ? '$' : '%'}} discount on this order
+                    </div>
+                    <div class="code-discount">
                         <div class="box-input">
-                            <input type="text" class="box-input-code">
-                            <button type="submit">
-                                Coppy code
+                            <input type="text" value="{{ coupon.code }}"  id="copyTarget" class="box-input-code">
+                            <button id="copyButton">
+                                Copy code
                             </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                {% else %}
+                    <img src="{{  'assets/images/gifts/gift.png'|theme}}" class="center" alt="" width="100%"/>
+                    <div class="text-gift">
+                        Sorry, not available discount on this order
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

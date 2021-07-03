@@ -99,13 +99,14 @@
     border: 1px solid #cccccc;
     border-radius: 10px 0 0 10px;
     padding: 10px 15px;
-    color: #000;
+    color: #000000;
     float: left;
+    font-weight: bold;
 }
 
 .box-input {
     margin: auto;
-    width: 34%;
+    width: 100%;
     padding-top: 20px;
 }
 

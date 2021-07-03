@@ -1,117 +1,141 @@
-{% if categoryList %}
-<section class="products-navigation">
-    <div class="container">
-        {% if showCategoriesFilter %} {% if typeCategoriesFilter == 'dropdown' %}
-        <div class="dropdown">
-            <button id="btnGroupCategories" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fas fa-filter"></i> {{ 'pixel.shop::component.cart.filter_by_category'|trans }}
-			</button>
-            <ul class="dropdown-menu" aria-labelledby="btnGroupCategories">
-                {% for category in categoryList if category.nest_depth == 0 %}
-                <li class="{% if activeCategory.slug == category.slug %}active{% endif %}">
-                    <a href="{{ category.url }}" class="dropdown-item">{{ category.name }}</a> {% if category.children|length > 0 %}
-                    <ul class="sub-category">
-                        {% for item in categoryList if item.parent.id == category.id %}
-                        <li class="{% if activeCategory.slug == item.slug %}active{% endif %}">
-                            <a href="{{ item.url }}">{{ item.name }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% else %}
-        <div class="btn-group" role="group">
-            {% for category in categoryList %}
-            <a href="{{ category.url }}" class="btn btn-default {% if activeCategory.slug == category.slug %}active{% endif %}">{{ category.name }}</a> {% endfor %}
-        </div>
-        {% endif %} {% endif %} {% if showSearchBar %}
-        <form method="get" class="products-search">
-            <div class="input-group">
-                <input name="search" type="text" class="form-control" placeholder="Search ..." aria-label="Search" value="{{ input('search') }}">
-                <div class="input-group-append input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-        </form>
-        {% endif %}
-    </div>
-</section>
-{% endif %}
-
 {% if showSlide %}
     {% if showSlide.bannerimgs.count %}
         <section class="ss-banner">
-            <div class="swiper-banner">
+            <div class="swiper-banner" style="height: calc(100vh - 200px);">
                 {% partial '@slide' banners=showSlide%}
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <!-- <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div> -->
             </div>
         </section>
     {% endif %}
 {% endif %}
 
-{% set nameCategory = __SELF__.nameCategory %}
+<div class="container-master">
+    {% if product %}
+    <div class="row-master">
+        <div class="col-sm-6">
+            <span class="xzoom-container">
+                <img class="xzoom" src="{{ product.image.getThumb(450, 'auto') }}" xoriginal="{{ product.image.getPath() }}" width="450" />
+            
+                {% if product.gallery.count > 0 %}
+                <div class="xzoom-thumbs">
+                    {% for image in product.gallery %}
+                    <a href="{{ image.getPath() }}">
+                        <img class="xzoom-gallery" width="80" src="{{ image.getThumb(450, 'auto') }}">
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </span>
+        </div>
+        <div class="col-sm-6">
+            <div class="product-info-to-cart">
+                <form data-request="onAddToCart" data-request-flash data-request-success="CartButton.onSuccess(data)" id="form-add-to-cart">
+                    <h1 id="product-title">
+                        {{ product.name }}
+                    </h1>
+                    <h4 id="product-option-title"></h4>
+                    <div class="text-uppercase row-border">
+                        {% if product.is_on_sale %}
+                            <span class="label label-success instock-status">{{ 'pixel.shop::lang.frontend.onsale'|trans }}</span>
+                        {% endif %}
+                
+                        {% if product.quantity > 0 %}
+                            <span class="label label-success instock-status">{{ 'pixel.shop::lang.frontend.instock'|trans }}</span>
+                        {% endif %}
+                
+                        {% if not product.isInfiniteQuantity() and product.quantity <= 0 %}
+                            <span class="label label-danger soldout-status">{{ 'pixel.shop::lang.frontend.soldout'|trans }}</span>
+                        {% endif %}
+            
+                    </div>
+            
+                    {% if product.categories|length > 0 %}
+                    {% endif %}
+            
+                    {% if product.type == 'product' %}
+                        <div class="publish-date">
+                            <span class="published-date">
+                                Published Date: {{ product.created_at|date('Y/m/d') }}
+                            </span>
+                            <span class="author-product">
+                                Author: {{product.author}}
+                            </span>
+                        </div>
+                    {% endif %}
+            
+                    <div class="show-description">
+                        {{ product.short_description|raw }}
+                    </div>
+            
+                    <hr>
+            
+                    <div class="form-group">
+                        <div class="wrap-product-detail">
+                                <h3 id="product-price" class="shop__product-price" style="display:none;"></h3>
+                            <div class="price-product" style="float: left;">
+                                <span class="shop__product-price-amount price-product-amount" data-currency="{{ product.getDefaultCurrencySymbol() }}">
+                                    {{ product.getPrice()|currency }}
+                                </span>
+                                <input type="hidden" name="base_price" value="{{ product.getPrice(false) }}">
+                                <input type="hidden" name="old_price" value="{{ product.getOldPrice(false) }}">
+            
+                                <input type="hidden" name="base_price_with_tax" value="{{ product.getPrice() }}">
+                                <input type="hidden" name="old_price_with_tax" value="{{ product.getOldPrice() }}">
+                            </div>
+                            <input name="quantity" type="hidden" value="1" min="1">
+                            <input name="type_buy" type="hidden" id="type_buy" value="nomal-cart">
+                            <input name="price_download" id="price_download" type="hidden">
+                            <input name="email_download" id="email_download" type="hidden">
+                            <input name="quantity" type="hidden" value="1" min="1">
+                            <input type="hidden" name="id" value="{{ product.id }}">
+                            <input type="hidden" name="price" value="{{ product.price }}">
+                            <input type="hidden" name="options" value="">
+                            <input type="hidden" name="options_index" value="">
+                            <!-- <div class="btn-more blu">
+                                <a href="" title="">{{ 'pixel.shop::lang.frontend.addtocart'|trans }}</a>
+                            </div> -->
+                            {% if product.quantity > 0 or product.isInfiniteQuantity() %}
+                                <button type="submit" class="btn-block btn-footer add-to-cart-btn" data-attach-loading>
+                                    {{ 'pixel.shop::lang.frontend.addtocart'|trans }}
+                                </button>
+            
+                                {% if product.attachments|length > 0 %}
+                                    <button type="button" class="btn-block btn-footer download-book-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Download Digtal
+                                    </button>
+                                {% endif  %}
+                            {% else %}
+                                <button type="submit" disabled class="btn-block btn-footer add-to-cart-btn">
+                                    {{ 'pixel.shop::lang.frontend.addtocart'|trans }}
+                                </button>
+            
+                                {% if product.attachments|length > 0 %}
+                                    <button type="button" class="btn-block btn-footer download-book-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Download Digtal
+                                    </button>
+                                {% endif  %}
+                            {% endif  %}
+                        </div>
+                        <hr>
+                    </div>
+                </form>
+            
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+	{% endif %}
+</div>
+</section>
+
 <section class="ss-shop-list" id="ss-shop-category">
     <div class="container-master">
-        <h2 class="ss-list-title style-2">Hot {{nameCategory | capitalize }}</h2>
+        <h2 class="ss-list-title style-2 style-related-product">Related Book</h2>
         <div class="ss-list-body">
-            {% for productGroup in hotProductInCate.chunk(3) %}
-			 	{% for product in productGroup %} 
-				 	{% partial '@hotitem' product=product %}
-				{% endfor %}
-			{% else %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="text-center">
-                        <i class="fas fa-search fa-6x"></i>
-                        <h1>{{ 'pixel.shop::component.cart.no_results'|trans }}</h1>
-                    </div>
-                </div>
-            </div>
+            {% for product in products %}
+                {% partial '@category' product=product %}
             {% endfor %}
         </div>
     </div>
 </section>
-
-
-<!-- <section class="products-pagination">
-    <div class="container">
-        {{ products.render|raw }}
-    </div>
-</section> -->
-
-{% set productsOfCate = __SELF__.productsOfCate %}
-
-{% for productGroupCate in productsOfCate %}
-	<section class="ss-shop-list" id="ss-shop-category">
-		<div class="container-master">
-			<h2 class="ss-list-title style-2 style-related-product">{{productGroupCate.name}}</h2>
-			<div class="ss-list-body">
-				{% for product in productGroupCate['items'] %}
-					 {% partial '@category' product=product %}
-				{% endfor %}
-			</div>
-		</div>
-	</section>
-{% endfor %}
-
-<!-- <section class="ss-shop-list" id="ss-shop-category">
-    <div class="container-master">
-        <h2 class="ss-list-title style-2 style-related-product">Toys</h2>
-        <div class="ss-list-body">
-            {% for productGroup in __SELF__.products.chunk(4) %} {% for product in productGroup %} {% partial '@category' product=product %} {% endfor %} {% else %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="text-center">
-                        <i class="fas fa-search fa-6x"></i>
-                        <h1>{{ 'pixel.shop::component.cart.no_results'|trans }}</h1>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section> -->

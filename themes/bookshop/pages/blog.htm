@@ -3,6 +3,12 @@ url = "/blog"
 layout = "default"
 is_hidden = 0
 
-[blog]
+[blogPostsCate]
+pageNumber = "{{ :page }}"
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "blog"
+postPage = "blog"
 ==
-{% component 'blog' %}
+{% component 'blogPostsCate' %}

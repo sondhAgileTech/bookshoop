@@ -249,6 +249,14 @@ input[type=number]::-webkit-outer-spin-button {
 	color: #928C8C;
 	margin-left: 20px;
 }
+.publish-date {
+	margin-top: 25px;
+}
+
+.share-buttons {
+	margin-top: 20px;
+    margin-bottom: 25px;
+}
 .show-description {
 	font-family: Nunito;
 	font-style: normal;
@@ -256,7 +264,7 @@ input[type=number]::-webkit-outer-spin-button {
 	font-size: 16px;
 	line-height: 32px;
 	color: #333333;
-	margin-top: 32px;
+	margin-top: 10px;
 	position: relative;
 }
 .pull-left-share {

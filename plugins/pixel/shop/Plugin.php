@@ -39,6 +39,7 @@ class Plugin extends PluginBase{
 		return [
 			'Pixel\Shop\Components\ProductList' => 'shopProductsList',
 			'Pixel\Shop\Components\ProductDetails' => 'shopProductsDetails',
+			'Pixel\Shop\Components\MerchandiseComponent' => 'MerchandiseComponent',
 			'Pixel\Shop\Components\CartContainer' => 'cartContainer',
 			'Pixel\Shop\Components\CartButton' => 'cartButton',
 			'Pixel\Shop\Components\UserProfile' => 'userProfile',

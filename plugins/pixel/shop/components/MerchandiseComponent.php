@@ -12,7 +12,7 @@ use Pixel\Shop\Models\SalesSettings;
 use Pixel\Shop\Components\CartTrait;
 use Admin\Manager\Models\Banner;
 
-class ProductList extends ComponentBase
+class MerchandiseComponent extends ComponentBase
 {
     use CartTrait;
     
@@ -24,8 +24,8 @@ class ProductList extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Products',
-			'description' => 'Display list of products'
+            'name'        => 'Merchandise',
+			'description' => 'Display list of merchandise'
         ];
     }
 
@@ -134,23 +134,19 @@ class ProductList extends ComponentBase
     }
 
     public function onRun()
-	{   
+	{
 		$this->addCss('/plugins/pixel/shop/assets/css/products.css');
-		$this->addJs('/plugins/pixel/shop/assets/js/alertify.min.js');
-    	$this->addCss('/plugins/pixel/shop/assets/css/product.css');
-		$this->addCss('/plugins/pixel/shop/assets/css/alertify.min.css');
-		$this->addJs('/plugins/pixel/shop/assets/js/product.js');
 
-		$category = $this->page['activeCategory'] = $this->loadCategory();
+        $category = $this->page['activeCategory'] = $this->loadCategory();
 		if ($category == null) {
 			return redirect('');
 		}
 		$this->products = $this->page['products'] = $this->loadProducts();
 		$this->productsOfCate = $this->page['productsOfCate'] = $this->getProductOfCate();
+		$this->page['hotProductInCate'] = $this->getHotProducts();
 		$this->nameCategory = $this->property('categoryFilter');
+
 		$this->page['showSlide'] = $this->showSlideCategory();
-		$this->settings = $this->page['shopSetting'] = SalesSettings::instance();
-		$this->page['product'] = $this->getSingleProduct();
     }
     
     protected function prepareLang(){
@@ -173,9 +169,9 @@ class ProductList extends ComponentBase
 		if (!$categoryId = $this->property('categoryFilter'))
 			return null;
 
-		if (!$category = Category::whereSlug($categoryId)->first())
+		if (!$category = Category::where('slug', $categoryId)->first())
 			return null;
-
+            
 		return $category;
 	}
 
@@ -264,22 +260,34 @@ class ProductList extends ComponentBase
 		return $list;
 	}
 
-	public function getSingleProduct() {
+	public function getHotProducts() {
+		$page = $this->property('productPage');
 		$category = $this->page['activeCategory'] = $this->loadCategory();
+        
+		$take = 3;                     
+	    $products = null;
+
+		$query = Item::select();
 		if($category) {
-			$query = Item::select();
 			$query->categories($category);
-			$product = $query->orderBy('created_at', 'DESC')->first();
-			if($product) {
-				return $product;
-			}
+
+			if($this->property('limitType') == 'take')
+				$products = $query->take($take)->orderBy('views_count', 'DESC')->get();
+			else
+				$products = $query->orderBy('views_count', 'DESC')->paginate($take);
+			
+			$products->each(function($product) use ($page) {
+				$product->setUrl($page, $this->controller);
+			});
+	
+			return $products;
 		}
 	}
 
 	public function getProductOfCate(){
 		if(!$param = $this->paramName('categoryFilter'))
 			return;
-		
+
 		if($this->property('categoryFilter') == $this->property('exceptCategory')) {
 			$categories = Category::where('slug','=', $this->property('exceptCategory'))->get();
 		} else {
